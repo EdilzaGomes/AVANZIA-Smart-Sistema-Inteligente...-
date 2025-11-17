@@ -1,0 +1,121 @@
+body.neon-bg {
+  background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  padding: 2rem;
+  background-color: #004d40;
+  color: #fff;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.slogan {
+  font-size: 1.2rem;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.mascote-area {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.mascote {
+  width: 150px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #00e676;
+}
+
+.frase-topo {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  color: #00796b;
+}
+
+.segmento {
+  text-align: center;
+  padding: 2rem;
+}
+
+.segmento h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.segmentos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.segmento-btn {
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.segmento-btn:hover {
+  background-color: #0097a7;
+  box-shadow: 0 0 10px #00e5ff;
+}
+
+.planos {
+  text-align: center;
+  padding: 2rem;
+}
+
+.planos h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  margin: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.basico {
+  background-color: #8bc34a;
+  color: white;
+}
+
+.intermediario {
+  background-color: #ff9800;
+  color: white;
+}
+
+.premium {
+  background-color: #9c27b0;
+  color: white;
+}
+
+.teste {
+  background-color: #03a9f4;
+  color: white;
+}
+
+.btn:hover {
+  box-shadow: 0 0 10px #fff;
+  transform: scale(1.05);
+}
