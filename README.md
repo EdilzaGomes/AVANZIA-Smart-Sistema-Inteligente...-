@@ -931,6 +931,100 @@ Clique abaixo, informe seu segmento e receba **atualizações exclusivas** de co
 6. **Preview:** escute com playback de estúdio; ajuste tempo e intensidade.
 7. **Publicar:** compartilhe seu take e receba nota e comentários.
 }
+/avanzia-smart
+  /public
+    index.html
+    app.js
+  /locales
+    pt.json
+    en.json
+    es.json
+    fr.json
+  README.md
+
+{
+  "title": "Avanzia Smart — Estúdio Palco Melodia",
+  "subtitle": "Karaokê inteligente, playback guiado e criação de melodia assistida — neon cristal.",
+  "startKaraoke": "Iniciar karaokê",
+  "melodyGuide": "Guia de melodia",
+  "segment": "Segmento",
+  "scoreMessage": "Sua nota"
+}
+{
+  "title": "Avanzia Smart — Melody Stage Studio",
+  "subtitle": "Smart karaoke, guided playback and assisted melody creation — crystal neon.",
+  "startKaraoke": "Start karaoke",
+  "melodyGuide": "Melody guide",
+  "segment": "Segment",
+  "scoreMessage": "Your score"
+}
+{
+  "title": "Avanzia Smart — Estudio Escenario Melodía",
+  "subtitle": "Karaoke inteligente, reproducción guiada y creación de melodía asistida — neón cristal.",
+  "startKaraoke": "Iniciar karaoke",
+  "melodyGuide": "Guía de melodía",
+  "segment": "Segmento",
+  "scoreMessage": "Tu puntuación"
+}
+{
+  "title": "Avanzia Smart — Studio Scène Mélodie",
+  "subtitle": "Karaoké intelligent, lecture guidée et création de mélodie assistée — néon cristal.",
+  "startKaraoke": "Démarrer le karaoké",
+  "melodyGuide": "Guide de mélodie",
+  "segment": "Segment",
+  "scoreMessage": "Votre note"
+}
+async function loadLocale(lang) {
+  try {
+    const res = await fetch(`/locales/${lang}.json`);
+    const translations = await res.json();
+
+    document.getElementById('title').textContent = translations.title;
+    document.getElementById('subtitle').textContent = translations.subtitle;
+    document.getElementById('startKaraokeBtn').textContent = translations.startKaraoke;
+    document.getElementById('melodyGuideTitle').textContent = translations.melodyGuide;
+    document.getElementById('segmentTitle').textContent = translations.segment;
+  } catch (e) {
+    console.error("Erro ao carregar idioma:", e);
+  }
+}
+
+// Detecta idioma do navegador
+const userLang = navigator.language.split('-')[0]; // ex: 'pt', 'en', 'es', 'fr'
+const supported = ['pt', 'en', 'es', 'fr'];
+const lang = supported.includes(userLang) ? userLang : 'en';
+
+loadLocale(lang);
+
+// Permite trocar manualmente
+document.getElementById('langSelect').addEventListener('change', (e) => {
+  loadLocale(e.target.value);
+});
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Avanzia Smart — Melodia Palco</title>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <h1 id="title"></h1>
+  <p id="subtitle"></p>
+
+  <button id="startKaraokeBtn"></button>
+
+  <h3 id="melodyGuideTitle"></h3>
+  <h3 id="segmentTitle"></h3>
+
+  <label for="langSelect">🌍 Idioma:</label>
+  <select id="langSelect">
+    <option value="pt">Português</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+  </select>
+</body>
+</html>
 
 ## 🛠 Instalação
 
