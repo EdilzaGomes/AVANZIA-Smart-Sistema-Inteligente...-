@@ -765,9 +765,172 @@ Quer manter seu estilo e ambiente sempre atualizados?
 Clique no botão abaixo, informe seu segmento e receba **atualizações exclusivas de combinações**:
 
 [🔘 Receba dicas de cores e combinações](#)
+---
+
+## 🎤 Estúdio Palco Melodia — Tecnologia de ponta neon cristal
+
+Um estúdio/karaokê integrado ao Avanzia Smart onde qualquer pessoa pode cantar, divulgar seu trabalho e criar melodias guiadas — com som inigualável e visual neon cristal de última geração.
+
+### 🔹 Funcionalidades principais
+- **Karaokê inteligente:** canto com avaliação automática de nota.
+- **Playback guiado:** acompanhamento de alta qualidade em tempo real.
+- **Criação de melodia assistida:** orientação passo a passo para transformar texto/poesia em melodia.
+- **Divulgação integrada:** compartilhe performances diretamente na plataforma.
+- **Identidade visual:** palco neon cristal vibrante com **guitarra dourada neon 3D** como ícone central.
+
+### 🎯 Benefícios
+- **Visibilidade imediata** para criadores.
+- **Engajamento orgânico** para segmentos musicais e culturais.
+- **Acessibilidade criativa:** mesmo quem nunca compôs consegue criar e publicar.
 
 ---
+
+## 🎨 Receba dicas de cores e combinações
+Clique abaixo, informe seu segmento e receba **atualizações exclusivas** de combinações:
+
+[🔘 Receba dicas de cores e combinações](#)
+
+---<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Avanzia Smart — Estúdio Palco Melodia</title>
+  <style>
+    :root {
+      --bg: #0a0f1c;
+      --neon-pink: #ff3cac;
+      --neon-cyan: #00eaff;
+      --neon-gold: #ffd700;
+      --text: #e8f0ff;
+    }
+    body {
+      margin: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, -apple-system, sans-serif;
+      display: flex; min-height: 100vh; align-items: center; justify-content: center;
+    }
+    .card {
+      width: 960px; max-width: 92vw; padding: 28px 32px; border-radius: 20px; background: rgba(10,15,28,0.6);
+      box-shadow: 0 0 24px rgba(0,234,255,0.15), inset 0 0 24px rgba(255,60,172,0.12);
+      backdrop-filter: blur(10px);
+    }
+    .title {
+      font-size: 32px; margin: 0 0 8px; letter-spacing: 0.5px;
+      color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0,234,255,0.6);
+    }
+    .subtitle {
+      font-size: 18px; margin: 0 0 20px; color: #bcd1ff;
+    }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px; }
+    .box {
+      padding: 18px; border-radius: 16px; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(0,234,255,0.25);
+    }
+    .box h3 { margin: 0 0 10px; color: var(--neon-pink); text-shadow: 0 0 8px rgba(255,60,172,0.5); }
+    .list { margin: 0; padding-left: 16px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: 18px; padding: 12px 18px; border-radius: 12px; cursor: pointer;
+      color: #051622; background: linear-gradient(90deg, var(--neon-gold), #ffd37a);
+      box-shadow: 0 0 14px rgba(255,215,0,0.45);
+      border: none; font-weight: 700; letter-spacing: 0.2px;
+    }
+    .btn:active { transform: translateY(1px); }
+    .cta {
+      display: inline-block; margin-top: 16px; color: var(--neon-cyan);
+      text-decoration: none; font-weight: 600; text-shadow: 0 0 6px rgba(0,234,255,0.6);
+    }
+    .guitar {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff4c2, var(--neon-gold));
+      box-shadow: 0 0 20px rgba(255,215,0,0.6), 0 0 40px rgba(255,215,0,0.3);
+      display: inline-block; margin-right: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="title"><span class="guitar"></span>Estúdio Palco Melodia</div>
+    <p class="subtitle">Karaokê inteligente, playback guiado e criação de melodia assistida — neon cristal de última geração.</p>
+
+    <div class="row">
+      <div class="box">
+        <h3>Funcionalidades principais</h3>
+        <ul class="list">
+          <li>Karaokê com avaliação automática de notas</li>
+          <li>Playback guiado com som de estúdio</li>
+          <li>Criação de melodias a partir de texto</li>
+          <li>Divulgação integrada das performances</li>
+        </ul>
+        <button class="btn" onclick="alert('Iniciar karaokê — módulo futuro')">Iniciar karaokê</button>
+      </div>
+
+      <div class="box">
+        <h3>Receba combinações por segmento</h3>
+        <p>Informe seu segmento e receba atualizações de cores e estilos.</p>
+        <a class="cta" href="#segment-form">🔘 Receba dicas de cores e combinações</a>
+      </div>
+    </div>
+
+    <div id="segment-form" class="box" style="margin-top:20px;">
+      <h3>Segmento</h3>
+      <form onsubmit="event.preventDefault(); alert('Segmento salvo — atualizações futuras');">
+        <label>
+          <span>Selecione seu segmento:</span><br/>
+          <select style="margin-top:8px; padding:8px; border-radius:8px;">
+            <option>Moda</option>
+            <option>Decoração</option>
+            <option>Música</option>
+            <option>Profissional</option>
+            <option>Juventude</option>
+          </select>
+        </label>
+        <br/><br/>
+        <button class="btn" type="submit">Receber atualizações</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
 ---
+---{
+  "melodiaPalco": {
+    "enabled": true,
+    "visual": {
+      "theme": "neon_cristal",
+      "primary": "#00eaff",
+      "accent": "#ff3cac",
+      "gold": "#ffd700",
+      "icon": "guitarra_dourada_neon_3d"
+    },
+    "karaoke": {
+      "autoScoring": true,
+      "scoringModel": "v1-prosody-pitch-timing",
+      "playbackQuality": "studio",
+      "latencyTargetMs": 60
+    },
+    "melodyAssist": {
+      "enabled": true,
+      "steps": ["capturar_texto", "detectar_métrica", "sugerir_escala", "gerar_progressão", "criar_melodia", "preview_playback"],
+      "defaultScale": "C major",
+      "defaultTempoBpm": 92
+    },
+    "publishing": {
+      "shareEnabled": true,
+      "channels": ["perfil", "feed", "segmento"],
+      "promo": {
+        "freeAdWeek": true,
+        "plan": "Premium PRO"
+      }
+    }
+  }### 🎼 Guia assistido de melodia
+1. **Texto/História:** escreva 4–8 linhas da sua mensagem.
+2. **Métrica:** o sistema detecta sílabas fortes/fracas e sugere padrões.
+3. **Escala:** escolha maior (alegre) ou menor (introspectiva).
+4. **Progressão de acordes:** use I–V–vi–IV para clima pop; ii–V–I para clima jazz.
+5. **Melodia:** o app propõe linhas com variação de **pitch** e **timing**.
+6. **Preview:** escute com playback de estúdio; ajuste tempo e intensidade.
+7. **Publicar:** compartilhe seu take e receba nota e comentários.
+}
 
 ## 🛠 Instalação
 
