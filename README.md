@@ -716,6 +716,56 @@ O **Avanzia Smart** garante que os segmentos não precisem se preocupar com a au
 
 **Objetivo:** manter clientes ativos e satisfeitos, transformando ausência em oportunidade de fidelização.
 
+------
+
+## 🔄 Automação de Recompra Inteligente
+
+O **Avanzia Smart** garante que os segmentos não precisem se preocupar com a ausência dos clientes:
+
+- 🕒 **Monitoramento automático de compras:** identifica clientes que não compraram há mais de 30 dias  
+- 📩 **Lembretes personalizados:** envio de mensagens automáticas (WhatsApp, e-mail ou notificações) incentivando a recompra  
+- 🎯 **Ofertas exclusivas:** recomendações de produtos e promoções específicas para cada nicho  
+- 🤖 **IA integrada:** ajusta o tom da comunicação conforme o perfil do cliente  
+- 💡 **Benefício para o segmento:** fidelização contínua sem esforço, garantindo fluxo de vendas e presença constante  
+
+---
+
+## 🎁 Incentivo à Criatividade com Anúncio Grátis
+
+O **Avanzia Smart** valoriza quem cria, compõe e compartilha ideias com propósito:
+
+- ✍️ Usuários que **compõem ou editam suas ideias** diretamente na plataforma  
+- 🚀 E publicam seus conteúdos (textos, músicas, projetos, reflexões)  
+- 🎉 Ganham **1 semana de anúncio grátis** para divulgar seus trabalhos, produtos ou mensagens  
+
+**Disponível exclusivamente para usuários do plano Premium PRO.**
+
+Essa funcionalidade incentiva a criatividade, a expressão pessoal e o crescimento dos talentos dentro da própria plataforma — sem precisar buscar outros aplicativos ou ferramentas externas.
+
+---
+
+## 🎨 Dicas de Combinações de Cores e Estilo
+
+### Ambientes
+- Alegre e criativo → Amarelo, coral, turquesa, branco  
+- Sofisticado e moderno → Cinza, preto, dourado, azul petróleo  
+- Espiritual e acolhedor → Tons terrosos, verde oliva, bege, lilás suave  
+
+### Vestes e Calçados
+- Criativo: vestido branco + sandália nude; blusa coral + saia azul royal + tênis branco  
+- Profissional/discreto: camisa azul marinho + calça preta + sapato marrom; vestido verde musgo + blazer bege + bota caramelo  
+
+**Dica de ouro:** use a regra do 3 → cor base + cor complementar + toque de destaque.
+
+------
+
+## 🎨 Receba Dicas de Cores e Combinações
+
+Quer manter seu estilo e ambiente sempre atualizados?  
+Clique no botão abaixo, informe seu segmento e receba **atualizações exclusivas de combinações**:
+
+[🔘 Receba dicas de cores e combinações](#)
+
 ---
 ---
 
