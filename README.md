@@ -1024,9 +1024,176 @@ document.getElementById('langSelect').addEventListener('change', (e) => {
     <option value="fr">Français</option>
   </select>
 </body>
-</html>
+</html>avanzia-smart-melodia-palco/
+  README.md
+  package.json
+  server.js
+  render.yaml
+  public/
+    index.html
+    styles.css
+    app.js
+    pages/
+      training.html
+  locales/
+    pt.json
+    en.json
+    es.json
+    fr.json
+# Avanzia Smart — Estúdio Palco Melodia
+Sistema proprietário da Agência Avanço Designer Gráfico. Inclui:
+- Multilíngue (pt, en, es, fr)
+- Modo Libras em todas as telas
+- Louvor em cada segmento (texto, áudio e vídeo)
+- Treinamento em Libras com mini‑testes
+- Layout responsivo para celular, tablet, TV e computador
 
+## Como rodar localmente
+1. Instale Node.js
+2. npm install
+3. npm start
+4. Acesse http://localhost:3000
+
+## Deploy no Render
+- Use render.yaml incluído
+- Start command: node server.js
+{
+  "name": "avanzia-smart-melodia-palco",
+  "version": "1.0.0",
+  "description": "Avanzia Smart — Estúdio Palco Melodia com multilíngue, Libras e louvor.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "morgan": "^1.10.0"
+  }
+}
+const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+app.use(morgan('tiny'));
+app.use(express.static('public'));
+
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', name: 'Avanzia Smart + Melodia Palco' });
+});
+
+app.listen(PORT, () => {
+  console.log(`Rodando em http://localhost:${PORT}`);
+});
+
+services:
+  - type: web
+    name: avanzia-smart-melodia-palco
+    env: node
+    plan: free
+    branch: main
+    buildCommand: ""
+    startCommand: "node server.js"
+    autoDeploy: true
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Avanzia Smart — Estúdio Palco Melodia</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header>
+    <h1 id="title">Avanzia Smart — Estúdio Palco Melodia</h1>
+    <select id="langSelect">
+      <option value="pt">Português</option>
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+    </select>
+    <label>
+      <input type="checkbox" id="enableLibras"/> Usar sistema em Libras
+    </label>
+    <a href="pages/training.html">Treinamento</a>
+  </header>
+
+  <main>
+    <h2 id="subtitle">Karaokê inteligente, playback guiado e criação de melodia assistida — neon cristal.</h2>
+    <button id="startKaraokeBtn">Iniciar karaokê</button>
+    <pre id="scoreResult"></pre>
+    <section id="librasTutorial" style="display:none;">
+      <h3>Tutorial em Libras</h3>
+      <video controls width="480">
+        <source src="assets/video/intro-libras.mp4" type="video/mp4"/>
+      </video>
+    </section>
+  </main>
+</body>
+</html>
+body { font-family: sans-serif; background: #0a0f1c; color: #fff; margin: 0; }
+header { padding: 12px; background: #111; color: #00eaff; display: flex; gap: 12px; align-items: center; }
+button { padding: 10px 16px; background: #ffd700; border: none; border-radius: 8px; cursor: pointer; }
+@media (max-width: 600px) { header { flex-direction: column; } }
+async function loadLocale(lang) {
+  const res = await fetch(`/../locales/${lang}.json`);
+  const t = await res.json();
+  document.getElementById('title').textContent = t.title;
+  document.getElementById('subtitle').textContent = t.subtitle;
+  document.getElementById('startKaraokeBtn').textContent = t.actions.startKaraoke;
+}
+
+const supported = ['pt','en','es','fr'];
+const userLang = navigator.language.split('-')[0];
+const lang = supported.includes(userLang) ? userLang : 'pt';
+loadLocale(lang);
+
+document.getElementById('langSelect').addEventListener('change', e => loadLocale(e.target.value));
+
+document.getElementById('enableLibras').addEventListener('change', e => {
+  document.getElementById('librasTutorial').style.display = e.target.checked ? 'block' : 'none';
+});
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Treinamento em Libras</title>
+  <link rel="stylesheet" href="../styles.css"/>
+</head>
+<body>
+  <h2>Treinamento em Libras</h2>
+  <video controls width="480">
+    <source src="../assets/video/intro-libras.mp4" type="video/mp4"/>
+  </video>
+</body>
+</html>
+{
+  "title": "Avanzia Smart — Estúdio Palco Melodia",
+  "subtitle": "Karaokê inteligente, playback guiado e criação de melodia assistida — neon cristal.",
+  "actions": { "startKaraoke": "Iniciar karaokê" }
+}
+{
+  "title": "Avanzia Smart — Melody Stage Studio",
+  "subtitle": "Smart karaoke, guided playback and assisted melody creation — crystal neon.",
+  "actions": { "startKaraoke": "Start karaoke" }
+}
+{
+  "title": "Avanzia Smart — Estudio Escenario Melodía",
+  "subtitle": "Karaoke inteligente, reproducción guiada y creación de melodía asistida — neón cristal.",
+  "actions": { "startKaraoke": "Iniciar karaoke" }
+}{
+  "title": "Avanzia Smart — Studio Scène Mélodie",
+  "subtitle": "Karaoké intelligent, lecture guidée et création de mélodie assistée — néon cristal.",
+  "actions": { "startKaraoké": "Démarrer le karaoké" }
+}
 ## 🛠 Instalação
+
 
 ```bash
 npm install express cors body-parser multer csv-parse xlsx  
