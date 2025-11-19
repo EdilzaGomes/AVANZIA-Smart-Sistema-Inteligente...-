@@ -1,4 +1,5 @@
-# AVANZIA Smart — Sistema Inteligente da Agência AVANÇO Designer Gráfico
+# 🎤 Avanzia Smart — Estúdio Palco Melodia
+Sistema proprietário da **Agência Avanço Designer Gráfico**, criado para unir tecnologia, louvor, acessibilidade...# AVANZIA Smart — Sistema Inteligente da Agência AVANÇO Designer Gráfico
 
 *Avanzia Smart* é um sistema próprio da agência *AVANÇO Designer Gráfico*, criado para transformar negócios em máquinas de vendas diárias com inteligência invisível, automação e fidelização.
 
