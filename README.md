@@ -1192,7 +1192,572 @@ document.getElementById('enableLibras').addEventListener('change', e => {
   "title": "Avanzia Smart — Studio Scène Mélodie",
   "subtitle": "Karaoké intelligent, lecture guidée et création de mélodie assistée — néon cristal.",
   "actions": { "startKaraoké": "Démarrer le karaoké" }
-}
+}OPENAI_API_KEY=YOUR_OPENAI_KEY
+JASPER_API_KEY=YOUR_JASPER_KEY
+LEONARDO_API_KEY=YOUR_LEONARDO_KEY
+
+GOOGLE_APPLICATION_CREDENTIALS=/path/para/seu/google-service-account.json
+AWS_ACCESS_KEY_ID=YOUR_AWS_KEY
+AWS_SECRET_ACCESS_KEY=YOUR_AWS_SECRET
+AWS_REGION=us-east-1
+
+AZURE_SPEECH_KEY=YOUR_AZURE_KEY
+AZURE_SPEECH_REGION=brazilsouth
+
+PORT=3001mkdir server && cd server
+npm init -y
+npm install express cors multer axios dotenv aws-sdk @google-cloud/text-to-speech
+mkdir -p services audio/audiobooks audio/biblia audio/musicas audio/podcasts storage/images storage/texts storage/chords datarequire('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
+
+const chatgpt = require('./services/chatgpt');
+const jasper = require('./services/jasper');
+const leonardo = require('./services/leonardo');
+const tts = require('./services/tts');
+const chordsSvc = require('./services/chords');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// Saúde
+app.get('/health', (req, res) => res.json({ status: 'ok', ts: Date.now() }));
+
+// 1) Conteúdo com 3 IAs
+app.post('/generate/content', async (req, res) => {
+  try {
+    const { segment, goal, tone, keywords } = req.body;
+
+    const baseText = await chatgpt.generate({ segment, goal, tone, keywords });
+    const optimizedCopy = await jasper.optimize({ text: baseText, tone, goal, segment });
+    const imageUrl = await leonardo.createImage({
+      prompt: `Campanha ${segment}, objetivo ${goal}, tom ${tone}. Elementos: ${(keywords || []).join(', ')}`
+    });
+
+    const ts = Date.now();
+    const textPath = path.join(__dirname, 'storage', 'texts', `content_${segment}_${ts}.txt`);
+    fs.writeFileSync(textPath, optimizedCopy, 'utf-8');
+
+    res.json({ segment, goal, tone, textFile: textPath, imageUrl });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'generate_content_failed', details: err.message });
+  }
+});
+
+// 2) TTS: texto -> MP3
+app.post('/tts', async (req, res) => {
+  try {
+    const { text, voice, engine, collection, filename } = req.body;
+    if (!text) return res.status(400).json({ error: 'missing_text' });
+
+    const outputDir = path.join(__dirname, 'audio', collection || 'audiobooks');
+    if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+
+    const outFile = path.join(outputDir, `${filename || `tts_${Date.now()}`}.mp3`);
+    await tts.synthesize({ text, voice, engine, outFile });
+
+    res.json({ ok: true, path: outFile });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'tts_failed', details: err.message });
+  }
+});
+
+// 3) Biblioteca de áudio: lista e streaming
+app.get('/audio/list', (req, res) => {
+  const base = path.join(__dirname, 'audio');
+  const collections = ['audiobooks', 'biblia', 'musicas', 'podcasts'];
+  const result = {};
+  collections.forEach(col => {
+    const colDir = path.join(base, col);
+    const files = fs.existsSync(colDir) ? fs.readdirSync(colDir).filter(f => f.endsWith('.mp3')) : [];
+    result[col] = files.map(f => `/audio/stream/${col}/${encodeURIComponent(f)}`);
+  });
+  res.json(result);
+});
+
+app.get('/audio/stream/:collection/:file', (req, res) => {
+  const filePath = path.join(__dirname, 'audio', req.params.collection, req.params.file);
+  if (!fs.existsSync(filePath)) return res.status(404).send('Not found');
+  res.setHeader('Content-Type', 'audio/mpeg');
+  fs.createReadStream(filePath).pipe(res);
+});
+
+// 4) Upload de faixas
+const multer = require('multer');
+const upload = multer({ dest: path.join(__dirname, 'audio', 'uploads') });
+
+app.post('/audio/upload/:collection', upload.single('file'), (req, res) => {
+  try {
+    const { collection } = req.params;
+    const destDir = path.join(__dirname, 'audio', collection);
+    if (!fs.existsSync(destDir)) fs.mkdirSync(destDir, { recursive: true });
+
+    const filename = req.file.originalname || `file_${Date.now()}.mp3`;
+    const destPath = path.join(destDir, filename);
+    fs.renameSync(req.file.path, destPath);
+    res.json({ ok: true, path: destPath });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'upload_failed', details: err.message });
+  }
+});
+
+// 5) Acordes para compositores
+// - CRUD simples de canções com cifras/tonalidades e variações (capotraste)
+app.post('/chords/create', (req, res) => {
+  try {
+    const { title, key, bpm, lyrics, chords, tags } = req.body;
+    const ts = Date.now();
+    const file = path.join(__dirname, 'storage', 'chords', `${title}_${ts}.json`);
+    fs.writeFileSync(file, JSON.stringify({ title, key, bpm, lyrics, chords, tags, createdAt: ts }, null, 2), 'utf-8');
+    res.json({ ok: true, file });
+  } catch (err) {
+    res.status(500).json({ error: 'chords_create_failed', details: err.message });
+  }
+});
+
+app.get('/chords/list', (req, res) => {
+  const dir = path.join(__dirname, 'storage', 'chords');
+  const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => f.endsWith('.json')) : [];
+  const items = files.map(f => {
+    const content = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf-8'));
+    return { title: content.title, key: content.key, bpm: content.bpm, tags: content.tags, file: `/chords/get/${encodeURIComponent(f)}` };
+  });
+  res.json(items);
+});
+
+app.get('/chords/get/:file', (req, res) => {
+  const filePath = path.join(__dirname, 'storage', 'chords', req.params.file);
+  if (!fs.existsSync(filePath)) return res.status(404).send('Not found');
+  res.setHeader('Content-Type', 'application/json');
+  fs.createReadStream(filePath).pipe(res);
+});
+
+// Transposição de acordes (exemplo simples de mudança de tom)
+app.post('/chords/transpose', (req, res) => {
+  const { chords = [], semitones = 0 } = req.body;
+  const scale = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  const transposeNote = n => {
+    const i = scale.indexOf(n);
+    if (i < 0) return n;
+    const ni = (i + semitones + scale.length) % scale.length;
+    return scale[ni];
+  };
+  const transposed = chords.map(c => {
+    // Suporta formato simples tipo "Am", "G", "F#m"
+    const match = c.match(/^([A-G]#?)(m|maj7|m7|7|sus2|sus4|dim|aug)?(\/[A-G]#?)?$/);
+    if (!match) return c;
+    const root = transposeNote(match[1]);
+    const qual = match[2] || '';
+    const bass = match[3] ? '/' + transposeNote(match[3].slice(1)) : '';
+    return `${root}${qual}${bass}`;
+  });
+  res.json({ original: chords, transposed });
+});
+
+// 6) “Altar” especial (home) – mensagem diária, playlists e destaque visual
+app.get('/altar', async (req, res) => {
+  try {
+    // Carrega base (você pode persistir em um DB; aqui é arquivo)
+    const altarFile = path.join(__dirname, 'data', 'altar.json');
+    let altarData = { title: 'Altar', dailyMessage: '', playlists: {}, heroImage: '' };
+    if (fs.existsSync(altarFile)) {
+      altarData = JSON.parse(fs.readFileSync(altarFile, 'utf-8'));
+    }
+
+    // Mensagem diária com ChatGPT baseada em tema
+    const dailyMessage = await chatgpt.generate({
+      segment: 'devocional',
+      goal: 'inspirar e motivar no dia',
+      tone: 'sereno e encorajador',
+      keywords: ['fé', 'disciplina', 'caminhada', 'propósito']
+    });
+
+    // Lista de playlists da API de áudio
+    const base = path.join(__dirname, 'audio');
+    const collections = ['audiobooks', 'biblia', 'musicas', 'podcasts'];
+    const playlists = {};
+    collections.forEach(col => {
+      const colDir = path.join(base, col);
+      const files = fs.existsSync(colDir) ? fs.readdirSync(colDir).filter(f => f.endsWith('.mp3')) : [];
+      playlists[col] = files.map(f => `/audio/stream/${col}/${encodeURIComponent(f)}`);
+    });
+
+    // Capa visual com Leonardo
+    const heroImage = await leonardo.createImage({
+      prompt: 'Capa devocional inspiradora: luz suave, livro aberto, trilha ao ar livre, estilo minimalista, tons cálidos'
+    });
+
+    // Texto de destaque otimizado com Jasper
+    const highlight = await jasper.optimize({
+      text: 'Bem-vindo ao Altar: seu espaço de escuta, leitura e inspiração diária.',
+      tone: 'caloroso',
+      goal: 'apresentar o ambiente',
+      segment: 'geral'
+    });
+
+    altarData.dailyMessage = dailyMessage;
+    altarData.playlists = playlists;
+    altarData.heroImage = heroImage;
+    altarData.highlight = highlight;
+
+    fs.writeFileSync(altarFile, JSON.stringify(altarData, null, 2), 'utf-8');
+
+    res.json(altarData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'altar_failed', details: err.message });
+  }
+});
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`));const axios = require('axios');
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+
+exports.generate = async ({ segment, goal, tone, keywords = [] }) => {
+  const resp = await axios.post(
+    'https://api.openai.com/v1/chat/completions',
+    {
+      model: 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: 'Você escreve conteúdo segmentado, claro e persuasivo em PT-BR.' },
+        { role: 'user', content: `Segmento: ${segment}\nObjetivo: ${goal}\nTom: ${tone}\nPalavras-chave: ${keywords.join(', ')}\nCrie um texto que conecte e inspire.` }
+      ],
+      temperature: 0.7
+    },
+    { headers: { Authorization: `Bearer ${OPENAI_API_KEY}` } }
+  );
+  return resp.data.choices[0].message.content;
+};const axios = require('axios');
+const JASPER_API_KEY = process.env.JASPER_API_KEY;
+
+// Placeholder – ajuste para o endpoint oficial da Jasper.ai conforme sua conta/SDK
+exports.optimize = async ({ text, tone, goal, segment }) => {
+  try {
+    const resp = await axios.post(
+      'https://api.jasper.ai/v1/optimize-copy',
+      { text, tone, goal, segment },
+      { headers: { Authorization: `Bearer ${JASPER_API_KEY}` } }
+    );
+    return resp.data.copy || text;
+  } catch {
+    return text;
+  }
+};const axios = require('axios');
+const LEONARDO_API_KEY = process.env.LEONARDO_API_KEY;
+
+// Ajuste ao endpoint/método oficial da Leonardo AI
+exports.createImage = async ({ prompt }) => {
+  try {
+    const resp = await axios.post(
+      'https://api.leonardo.ai/v1/generate',
+      { prompt, size: '1024x1024' },
+      { headers: { Authorization: `Bearer ${LEONARDO_API_KEY}` } }
+    );
+    return resp.data?.imageUrl || null;
+  } catch {
+    return null;
+  }
+};const fs = require('fs');
+const { TextToSpeechClient } = require('@google-cloud/text-to-speech');
+const AWS = require('aws-sdk');
+
+const googleClient = new TextToSpeechClient();
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION || 'us-east-1'
+});
+const polly = new AWS.Polly();
+
+exports.synthesize = async ({ text, voice = 'pt-BR-Neural2-B', engine = 'google', outFile }) => {
+  if (engine === 'polly') {
+    const params = {
+      Text: text,
+      OutputFormat: 'mp3',
+      VoiceId: 'Camila',
+      Engine: 'neural'
+    };
+    const data = await polly.synthesizeSpeech(params).promise();
+    fs.writeFileSync(outFile, data.AudioStream);
+    return outFile;
+  }
+
+  const request = {
+    input: { text },
+    voice: { languageCode: 'pt-BR', name: voice },
+    audioConfig: { audioEncoding: 'MP3', speakingRate: 1.0, pitch: 0.0 }
+  };
+  const [response] = await googleClient.synthesizeSpeech(request);
+  fs.writeFileSync(outFile, response.audioContent, 'binary');
+  return outFile;
+};// Helpers avançados podem ir aqui (detecção de tom, capotraste, campos harmônicos).
+// No exemplo principal, usamos transposição simples direto no index.js.{
+  "title": "Altar",
+  "dailyMessage": "",
+  "highlight": "",
+  "heroImage": "",
+  "playlists": {
+    "audiobooks": [],
+    "biblia": [],
+    "musicas": [],
+    "podcasts": []
+  }
+}curl -X POST http://localhost:3001/generate/content \
+  -H "Content-Type: application/json" \
+  -d '{"segment":"fitness","goal":"vender assinatura de audiobook","tone":"motivador","keywords":["Bíblia","caminhada","foco"]}'curl -X POST http://localhost:3001/tts \
+  -H "Content-Type: application/json" \
+  -d '{"text":"Capítulo 1: Caminhar na fé...","voice":"pt-BR-Neural2-B","engine":"google","collection":"audiobooks","filename":"cap1"}'curl http://localhost:3001/altarcurl -X POST http://localhost:3001/chords/create \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Caminho da Luz","key":"G","bpm":72,"lyrics":"Verso 1...","chords":["G","D","Em","C"],"tags":["devocional","calma"]}'curl -X POST http://localhost:3001/chords/transpose \
+  -H "Content-Type: application/json" \
+  -d '{"chords":["G","D","Em","C"],"semitones":2}'implementation "androidx.media3:media3-exoplayer:1.3.1"
+implementation "androidx.media3:media3-ui:1.3.1"
+implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.8.4"
+implementation "com.squareup.okhttp3:okhttp:4.11.0"
+implementation "com.google.code.gson:gson:2.10.1"package com.example.audiohub
+
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
+
+class ApiClient {
+    private val client = OkHttpClient()
+    private val baseUrl = "http://10.0.2.2:3001" // Emulador
+
+    fun get(path: String): String {
+        val req = Request.Builder().url("$baseUrl$path").build()
+        client.newCall(req).execute().use { resp ->
+            return resp.body?.string() ?: ""
+        }
+    }
+
+    fun postJson(path: String, json: String): String {
+        val body = json.toRequestBody("application/json".toMediaType())
+        val req = Request.Builder().url("$baseUrl$path").post(body).build()
+        client.newCall(req).execute().use { resp ->
+            return resp.body?.string() ?: ""
+        }
+    }
+}package com.example.audiohub
+
+import com.google.gson.Gson
+
+data class AudioList(
+    val audiobooks: List<String>,
+    val biblia: List<String>,
+    val musicas: List<String>,
+    val podcasts: List<String>
+)
+data class AltarData(
+    val title: String,
+    val dailyMessage: String,
+    val highlight: String,
+    val heroImage: String?,
+    val playlists: AudioList
+)
+
+class PlaylistRepository(private val api: ApiClient = ApiClient()) {
+    private val gson = Gson()
+
+    fun fetchAudio(): AudioList {
+        val json = api.get("/audio/list")
+        return gson.fromJson(json, AudioList::class.java)
+    }
+
+    fun fetchAltar(): AltarData {
+        val json = api.get("/altar")
+        return gson.fromJson(json, AltarData::class.java)
+    }
+}package com.example.audiohub
+
+import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class AltarActivity : AppCompatActivity() {
+    private val repo = PlaylistRepository()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val root = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(32, 48, 32, 32)
+        }
+
+        val title = TextView(this)
+        val highlight = TextView(this)
+        val daily = TextView(this)
+        val playlists = TextView(this)
+
+        root.addView(title)
+        root.addView(highlight)
+        root.addView(daily)
+        root.addView(playlists)
+        setContentView(root)
+
+        Thread {
+            val altar = repo.fetchAltar()
+            runOnUiThread {
+                title.text = altar.title
+                highlight.text = altar.highlight
+                daily.text = "Mensagem diária:\n${altar.dailyMessage}"
+                playlists.text = "Playlists disponíveis:\nAudiobooks: ${altar.playlists.audiobooks.size} | Bíblia: ${altar.playlists.biblia.size} | Músicas: ${altar.playlists.musicas.size} | Podcasts: ${altar.playlists.podcasts.size}"
+            }
+        }.start()
+    }
+}package com.example.audiohub
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
+
+class AudioPlayerActivity : AppCompatActivity() {
+    private var player: ExoPlayer? = null
+    private lateinit var playerView: PlayerView
+    private val repo = PlaylistRepository()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        playerView = PlayerView(this)
+        setContentView(playerView)
+
+        player = ExoPlayer.Builder(this).build()
+        playerView.player = player
+
+        Thread {
+            val list = repo.fetchAudio()
+            val queue = list.musicas + list.audiobooks + list.biblia + list.podcasts
+            if (queue.isNotEmpty()) {
+                runOnUiThread {
+                    player?.setMediaItems(queue.map { MediaItem.fromUri(it) })
+                    player?.prepare()
+                    player?.play()
+                }
+            }
+        }.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        player?.release()
+        player = null
+    }
+}package com.example.audiohub
+
+import android.os.Bundle
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
+
+class ComposerActivity : AppCompatActivity() {
+    private val api = ApiClient()
+    private val gson = Gson()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(32,32,32,32) }
+        val title = EditText(this).apply { hint = "Título" }
+        val key = EditText(this).apply { hint = "Tom (ex: G, A, F#m)" }
+        val bpm = EditText(this).apply { hint = "BPM (ex: 72)" }
+        val lyrics = EditText(this).apply { hint = "Letra" }
+        val chords = EditText(this).apply { hint = "Acordes (ex: G,D,Em,C)" }
+        val tags = EditText(this).apply { hint = "Tags (ex: devocional, calma)" }
+        val transpose = EditText(this).apply { hint = "Transpor (semitons, ex: +2)" }
+        val btnSave = Button(this).apply { text = "Salvar Canção" }
+        val btnTranspose = Button(this).apply { text = "Transpor Acordes" }
+        val output = TextView(this)
+
+        root.addView(title); root.addView(key); root.addView(bpm)
+        root.addView(lyrics); root.addView(chords); root.addView(tags)
+        root.addView(transpose); root.addView(btnSave); root.addView(btnTranspose); root.addView(output)
+        setContentView(root)
+
+        btnSave.setOnClickListener {
+          Thread {
+            val payload = mapOf(
+              "title" to title.text.toString(),
+              "key" to key.text.toString(),
+              "bpm" to bpm.text.toString().toIntOrNull(),
+              "lyrics" to lyrics.text.toString(),
+              "chords" to chords.text.toString().split(",").map { it.trim() },
+              "tags" to tags.text.toString().split(",").map { it.trim() }
+            )
+            val json = gson.toJson(payload)
+            val resp = api.postJson("/chords/create", json)
+            runOnUiThread { output.text = resp }
+          }.start()
+        }
+
+        btnTranspose.setOnClickListener {
+          Thread {
+            val chordList = chords.text.toString().split(",").map { it.trim() }
+            val semi = transpose.text.toString().toIntOrNull() ?: 0
+            val payload = gson.toJson(mapOf("chords" to chordList, "semitones" to semi))
+            val resp = api.postJson("/chords/transpose", payload)
+            runOnUiThread { output.text = resp }
+          }.start()
+        }
+    }
+}# 📱 Projeto VansApp – Ambiente Multimídia com IA
+
+Este aplicativo foi criado para oferecer uma experiência completa de conteúdo inteligente, inspirador e acessível, integrando três das melhores IAs do mercado: **ChatGPT**, **Jasper.ai** e **Leonardo AI**.
+
+---
+
+## ✨ Funcionalidades principais
+
+- 🎧 **Biblioteca de Áudio**  
+  - Audiobooks (inclusive seu livro autoral)  
+  - Bíblia narrada  
+  - Músicas para caminhada e meditação  
+  - Podcasts motivacionais
+
+- 🧠 **Integração com Inteligência Artificial**  
+  - **ChatGPT**: geração de conteúdo dinâmico e mensagens diárias  
+  - **Jasper.ai**: copywriting para campanhas e textos persuasivos  
+  - **Leonardo AI**: criação de imagens inspiradoras e capas visuais
+
+- 🎼 **Ambiente para Compositores**  
+  - Criação de canções com acordes e letras  
+  - Transposição automática de acordes  
+  - Organização por tags e estilos
+
+- ⛪ **Altar Devocional**  
+  - Mensagem diária gerada por IA  
+  - Destaque visual com imagem inspiradora  
+  - Playlists temáticas para momentos de fé e reflexão
+
+---
+
+## 🚀 Tecnologias utilizadas
+
+- **Node.js + Express** (backend)
+- **Kotlin + ExoPlayer** (app Android)
+- **Google Cloud TTS / Amazon Polly / Azure Speech** (áudio neural)
+- **OpenAI, Jasper.ai, Leonardo AI** (conteúdo e imagem)
+- **GitHub + Git** (controle de versão)
+
+---
+
+## 📦 Instalação
+
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio/server
+npm install
+npm start
 ## 🛠 Instalação
 
 
