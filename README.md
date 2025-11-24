@@ -2266,11 +2266,390 @@ Novos segmentos podem ser adicionados apenas incluindo novos blocos dentro de `"
     }
   },
   "padraoMensagens": "Todas as lojas recebem mensagens padrão do seu segmento, personalizadas com os dados da loja."
+}object ConsentManager {
+    @Volatile private var consentGiven = false
+    @Volatile private var scopes: Set<String> = emptySet()
+
+    fun hasConsent(vararg requiredScopes: String): Boolean {
+        return consentGiven && scopes.containsAll(requiredScopes.toSet())
+    }
+
+    fun showConsentDialog(context: Context, onResult: (Boolean, Set<String>) -> Unit) {
+        val options = arrayOf("Coleta de dados da loja", "Transferência para anúncios", "Armazenamento em nuvem")
+        val selected = mutableSetOf<Int>()
+
+        AlertDialog.Builder(context)
+            .setTitle("Consentimento de dados")
+            .setMultiChoiceItems(options, booleanArrayOf(false, false, false)) { _, which, isChecked ->
+                if (isChecked) selected.add(which) else selected.remove(which)
+            }
+            .setPositiveButton("Aceitar") { _, _ ->
+                consentGiven = true
+                scopes = selected.map { options[it] }.toSet()
+                onResult(true, scopes)
+            }
+            .setNegativeButton("Recusar") { _, _ ->
+                consentGiven = false
+                scopes = emptySet()
+                onResult(false, scopes)
+            }
+            .show()
+    }
 }
-Instalação
 
+fun requireConsent(context: Context, vararg requiredScopes: String, block: () -> Unit) {
+    if (ConsentManager.hasConsent(*requiredScopes)) {
+        block()
+    } else {
+        ConsentManager.showConsentDialog(context) { ok, _ ->
+            if (ok && ConsentManager.hasConsent(*requiredScopes)) block()
+            else Toast.makeText(context, "Operação bloqueada: consentimento necessário.", Toast.LENGTH_LONG).show()
+        }
+    }
+}data class PayItem(val sku: String, val titulo: String, val preco: String)
 
-```bash
+class BillingGuard(private val billing: Billing) {
+
+    fun confirmAndCharge(context: Context, item: PayItem, onPaid: () -> Unit) {
+        AlertDialog.Builder(context)
+            .setTitle("Confirmação de pagamento")
+            .setMessage("Você está prestes a comprar: ${item.titulo}\nPreço: ${item.preco}\nConfirmar?")
+            .setPositiveButton("Confirmar") { _, _ ->
+                billing.comprarConsumivel(item.sku) { purchaseToken ->
+                    if (billing.validarCompra(purchaseToken, item.sku)) {
+                        onPaid()
+                        billing.consumir(item.sku)
+                    } else {
+                        Toast.makeText(context, "Compra inválida. Operação cancelada.", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+}
+
+class MediaLocker {
+    fun allowDownloadIfPaid(context: Context, paid: Boolean, startDownload: () -> Unit) {
+        if (paid) startDownload()
+        else Toast.makeText(context, "Baixar bloqueado: finalize o pagamento.", Toast.LENGTH_LONG).show()
+    }
+}
+
+// Uso:
+val guard = BillingGuard(billing)
+
+fun gerarVideoPago(context: Context, item: PayItem) {
+    guard.confirmAndCharge(context, item) {
+        // Geração do vídeo
+        val videoId = gerarVideo()
+        // Somente libera download se pago
+        MediaLocker().allowDownloadIfPaid(context, true) {
+            baixarVideo(videoId)
+        }
+    }
+}object PrivacyGate {
+    fun canExport(context: Context, vararg requiredScopes: String): Boolean {
+        val ok = ConsentManager.hasConsent(*requiredScopes)
+        if (!ok) Toast.makeText(context, "Exportação bloqueada: consentimento não concedido.", Toast.LENGTH_LONG).show()
+        return ok
+    }
+}
+
+fun exportarDadosSensíveis(context: Context, payload: Map<String, Any>) {
+    if (!PrivacyGate.canExport(context, "Transferência para anúncios")) return
+    // Envia dados somente com consentimento válido
+    sendSecure(payload)
+}
+
+fun sendSecure(payload: Map<String, Any>) {
+    // envio com HTTPS, token de sessão, mínimo necessário de dados
+}class SensitiveStore(context: Context) {
+    private val masterKey = MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
+    private val prefs = EncryptedSharedPreferences.create(
+        context,
+        "secure_prefs",
+        masterKey,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
+
+    fun putSecure(key: String, value: String) = prefs.edit().putString(key, value).apply()
+    fun getSecure(key: String): String? = prefs.getString(key, null)
+}
+
+fun mask(text: String, keepLast: Int = 4): String {
+    if (text.length <= keepLast) return "****"
+    return "*".repeat(text.length - keepLast) + text.takeLast(keepLast)
+}data class NotaOCR(val fornecedor: String, val total: Double, val itens: List<String>, val data: String)
+
+fun revisarNota(context: Context, ocr: NotaOCR, onConfirm: (NotaOCR) -> Unit) {
+    AlertDialog.Builder(context)
+        .setTitle("Revisar nota")
+        .setMessage("Fornecedor: ${ocr.fornecedor}\nTotal: R$ ${"%.2f".format(ocr.total)}\nData: ${ocr.data}\nItens: ${ocr.itens.joinToString(", ")}")
+        .setPositiveButton("Confirmar lançamento") { _, _ -> onConfirm(ocr) }
+        .setNegativeButton("Editar") { _, _ -> abrirTelaEdicao(ocr) }
+        .show()
+}object AuditLog {
+    fun record(event: String, details: Map<String, Any> = emptyMap()) {
+        val payload = mapOf(
+            "event" to event,
+            "details" to details,
+            "timestamp" to System.currentTimeMillis()
+        )
+        sendToAuditServer(payload)
+    }
+    private fun sendToAuditServer(payload: Map<String, Any>) { /* envio seguro */ }
+}
+
+// Exemplos:
+AuditLog.record("CONSENT_ACCEPTED", mapOf("scopes" to listOf("Coleta de dados", "Transferência para anúncios")))
+AuditLog.record("PURCHASE_CONFIRMED", mapOf("sku" to "pixverse_video_unit"))
+AuditLog.record("EXPORT_BLOCKED", mapOf("reason" to "Consent missing"))
+Instalação{
+  "securityPolicy": {
+    "requireConsentFor": [
+      "Coleta de dados da loja",
+      "Transferência para anúncios",
+      "Armazenamento em nuvem"
+    ],
+    "blockExportIfNoConsent": true,
+    "requirePaymentConfirmation": true,
+    "lockDownloadUntilPaid": true,
+    "maskSensitiveUi": true,
+    "auditEnabled": true
+  }
+}
+data class SignedUrl(val url: String, val expiresAt: Long)
+
+fun requestSignedUrl(videoId: String, purchaseToken: String, onReady: (SignedUrl) -> Unit) {
+    // Servidor valida purchaseToken e retorna URL assinada com expiração curta
+}
+
+fun baixarVideoSeguro(signed: SignedUrl) {
+    if (System.currentTimeMillis() > signed.expiresAt) {
+        throw IllegalStateException("Link expirado")
+    }
+    // Baixar via HTTPS
+}
+{
+  "securityPolicy": {
+    "requireConsentFor": [
+      "Coleta de dados da loja",
+      "Transferência para anúncios",
+      "Armazenamento em nuvem"
+    ],
+    "blockExportIfNoConsent": true,
+    "requirePaymentConfirmation": true,
+    "lockDownloadUntilPaid": true,
+    "maskSensitiveUi": true,
+    "auditEnabled": true
+  }
+}
+```bash// =========================
+// Consentimento de dados
+// =========================
+object ConsentManager {
+    @Volatile private var consentGiven = false
+    @Volatile private var scopes: Set<String> = emptySet()
+
+    fun hasConsent(vararg requiredScopes: String): Boolean {
+        return consentGiven && scopes.containsAll(requiredScopes.toSet())
+    }
+
+    fun showConsentDialog(context: Context, requiredScopes: Set<String>, onResult: (Boolean) -> Unit) {
+        val options = requiredScopes.toTypedArray()
+        val selected = BooleanArray(options.size) { false }
+
+        AlertDialog.Builder(context)
+            .setTitle("Consentimento de dados")
+            .setMessage(consentMessage(requiredScopes))
+            .setMultiChoiceItems(options, selected) { _, which, isChecked ->
+                selected[which] = isChecked
+            }
+            .setPositiveButton("Aceitar") { _, _ ->
+                consentGiven = true
+                scopes = options.filterIndexed { i, _ -> selected[i] }.toSet()
+                SecurityToasts.onConsentAccepted(context)
+                onResult(true)
+            }
+            .setNegativeButton("Recusar") { _, _ ->
+                consentGiven = false
+                scopes = emptySet()
+                SecurityToasts.onConsentMissing(context)
+                onResult(false)
+            }
+            .show()
+    }
+
+    private fun consentMessage(scopes: Set<String>) = buildString {
+        appendLine("Proteção e controle dos seus dados")
+        appendLine()
+        appendLine("Por que vale a pena:")
+        appendLine("• Seus dados só são usados com sua autorização.")
+        appendLine("• Você decide o que compartilhar e pode mudar a qualquer momento.")
+        appendLine("• Segurança aplicada: criptografia, confirmação e auditoria.")
+        appendLine()
+        appendLine("Operações que você está autorizando:")
+        scopes.forEach { appendLine("• $it") }
+        appendLine()
+        appendLine("Sem autorizar, algumas funções ficarão bloqueadas por segurança.")
+    }
+}
+
+fun requireConsent(context: Context, requiredScopes: Set<String>, block: () -> Unit) {
+    if (ConsentManager.hasConsent(*requiredScopes.toTypedArray())) {
+        block()
+    } else {
+        ConsentManager.showConsentDialog(context, requiredScopes) { ok ->
+            if (ok && ConsentManager.hasConsent(*requiredScopes.toTypedArray())) block()
+            else Toast.makeText(context, "Operação bloqueada: consentimento necessário.", Toast.LENGTH_LONG).show()
+        }
+    }
+}
+
+// =========================
+// Pagamento com confirmação
+// =========================
+data class PayItem(val sku: String, val titulo: String, val preco: String)
+
+interface Billing {
+    fun comprarConsumivel(sku: String, onSuccess: (String /*purchaseToken*/) -> Unit)
+    fun consumir(sku: String)
+    fun validarCompra(purchaseToken: String, sku: String): Boolean
+}
+
+class BillingGuard(private val billing: Billing) {
+    fun confirmAndCharge(context: Context, item: PayItem, onPaid: (String) -> Unit) {
+        AlertDialog.Builder(context)
+            .setTitle("Confirmação de pagamento")
+            .setMessage("Você está prestes a comprar: ${item.titulo}\nPreço: ${item.preco}\nConfirmar?")
+            .setPositiveButton("Confirmar") { _, _ ->
+                billing.comprarConsumivel(item.sku) { purchaseToken ->
+                    if (billing.validarCompra(purchaseToken, item.sku)) {
+                        SecurityToasts.onPaymentConfirmed(context)
+                        billing.consumir(item.sku)
+                        onPaid(purchaseToken)
+                    } else {
+                        Toast.makeText(context, "Compra inválida. Operação cancelada.", Toast.LENGTH_LONG).show()
+                        AuditLog.record("PURCHASE_INVALID", mapOf("sku" to item.sku))
+                    }
+                }
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+}
+
+class MediaLocker {
+    fun allowDownloadIfPaid(context: Context, purchaseToken: String?, startDownload: () -> Unit) {
+        if (purchaseToken != null) startDownload()
+        else SecurityToasts.onPaymentRequired(context)
+    }
+}
+
+// =========================
+// Portão de privacidade (exportação)
+// =========================
+object PrivacyGate {
+    fun canExport(context: Context, requiredScopes: Set<String>): Boolean {
+        val ok = ConsentManager.hasConsent(*requiredScopes.toTypedArray())
+        if (!ok) Toast.makeText(context, "Exportação bloqueada: consentimento não concedido.", Toast.LENGTH_LONG).show()
+        return ok
+    }
+}
+
+fun exportarDadosSensiveis(context: Context, payload: Map<String, Any>, requiredScopes: Set<String>) {
+    if (!PrivacyGate.canExport(context, requiredScopes)) {
+        AuditLog.record("EXPORT_BLOCKED", mapOf("reason" to "CONSENT_MISSING"))
+        return
+    }
+    sendSecure(payload)
+}
+
+private fun sendSecure(payload: Map<String, Any>) {
+    // Envio via HTTPS + token de sessão; enviar somente o mínimo necessário.
+}
+
+// =========================
+// Armazenamento seguro
+// =========================
+class SensitiveStore(context: Context) {
+    private val masterKey = MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
+    private val prefs = EncryptedSharedPreferences.create(
+        context,
+        "secure_prefs",
+        masterKey,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
+    fun putSecure(key: String, value: String) = prefs.edit().putString(key, value).apply()
+    fun getSecure(key: String): String? = prefs.getString(key, null)
+}
+
+fun mask(text: String, keepLast: Int = 4): String {
+    if (text.length <= keepLast) return "****"
+    return "*".repeat(text.length - keepLast) + text.takeLast(keepLast)
+}
+
+// =========================
+// Auditoria
+// =========================
+object AuditLog {
+    fun record(event: String, details: Map<String, Any> = emptyMap()) {
+        val payload = mapOf(
+            "event" to event,
+            "details" to details,
+            "timestamp" to System.currentTimeMillis()
+        )
+        sendToAuditServer(payload)
+    }
+    private fun sendToAuditServer(payload: Map<String, Any>) {
+        // Implementar envio seguro para seu backend de auditoria
+    }
+}
+
+// =========================
+// Mensagens de segurança (UI)
+// =========================
+object SecurityToasts {
+    fun onConsentAccepted(ctx: Context) =
+        Toast.makeText(ctx, "Consentimento registrado: sua segurança está protegida e sob seu controle.", Toast.LENGTH_LONG).show()
+    fun onConsentMissing(ctx: Context) =
+        Toast.makeText(ctx, "Operação bloqueada por segurança: autorize o uso de dados para continuar.", Toast.LENGTH_LONG).show()
+    fun onPaymentConfirmed(ctx: Context) =
+        Toast.makeText(ctx, "Pagamento confirmado com proteção: mídia liberada com segurança.", Toast.LENGTH_LONG).show()
+    fun onPaymentRequired(ctx: Context) =
+        Toast.makeText(ctx, "Mídia paga bloqueada: confirme o pagamento para liberar com segurança.", Toast.LENGTH_LONG).show()
+}
+
+fun renderSegurancaBanner(textView: TextView) {
+    textView.text = "Sua segurança em primeiro lugar: proteção de dados, consentimento explícito e controle total do que é compartilhado."
+    textView.setTextColor(Color.WHITE)
+    textView.setBackgroundColor(Color.parseColor("#2B7A0B"))
+    textView.textSize = 14f
+}
+
+// =========================
+// Fluxo de mídia paga seguro (exemplo)
+// =========================
+fun gerarEBaixarVideoPago(
+    context: Context,
+    billing: Billing,
+    requiredScopes: Set<String>,
+    item: PayItem
+) {
+    requireConsent(context, requiredScopes) {
+        BillingGuard(billing).confirmAndCharge(context, item) { purchaseToken ->
+            AuditLog.record("PURCHASE_CONFIRMED", mapOf("sku" to item.sku))
+            val videoId = "video_${System.currentTimeMillis()}_${item.sku}" // gerar vídeo na sua integração
+            MediaLocker().allowDownloadIfPaid(context, purchaseToken) {
+                AuditLog.record("VIDEO_DOWNLOAD", mapOf("videoId" to videoId))
+                // baixar vídeo com HTTPS + token; se usar URL assinada, valide expiração
+            }
+        }
+    }
+}
 npm install express cors body-parser multer csv-parse xlsx  
 node server.js
 
