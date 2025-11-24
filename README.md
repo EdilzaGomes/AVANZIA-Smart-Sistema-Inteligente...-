@@ -1,4 +1,58 @@
-![Avanzia Smart](avanzia-banner.jpg)# 🎤 Avanzia Smart — Estúdio Palco Melodia
+# Avanzia Smart
+
+Aplicativo inteligente para comerciantes, com motor automático por segmento e integração com IAs de criação de vídeo.
+
+## 🚀 Funcionalidades
+
+- **Motor por segmento**  
+  Cada comerciante escolhe seu nicho (Restaurante, Moda, Bebê, Calçados etc.).  
+  O sistema ativa automaticamente os templates e fluxos adequados.  
+
+- **Integração com IAs de vídeo**  
+  - Pixverse → vídeos criativos e visuais  
+  - HeyGen → vídeos com avatar apresentando produtos  
+  - Pictory → vídeos explicativos e educativos  
+
+- **Automação completa**  
+  O comerciante só adiciona seus dados (nome da loja, produtos, fotos).  
+  O sistema gera vídeos e campanhas automaticamente, sem complicação.  
+
+## 💳 Modelo de cobrança
+
+- **Teste grátis**  
+  - Cada novo usuário recebe **3 vídeos gratuitos** para experimentar.  
+  - Você também pode testar gratuitamente antes de usar em produção.  
+
+- **Pay‑per‑use (sem plano mensal)**  
+  - Pixverse: R$ 15 por vídeo  
+  - HeyGen: R$ 20 por vídeo  
+  - Pictory: R$ 10 por vídeo  
+  - O cliente paga apenas quando gera um vídeo.  
+  - Compras são feitas via **Google Play Billing** como consumíveis.  
+
+## 📱 Fluxo de uso
+
+1. Baixe o Avanzia Smart na Play Store.  
+2. Escolha seu segmento (ex.: Moda, Restaurante).  
+3. Receba créditos grátis para testar.  
+4. Gere vídeos com Pixverse, HeyGen ou Pictory.  
+5. Pague apenas pelo que usar, sem mensalidade.  
+
+## 🛠️ Tecnologias
+
+- Android (Kotlin/Java)  
+- Google Play Billing (consumíveis)  
+- Firebase (notificações push, Remote Config)  
+- GitHub Actions (CI/CD para build e release)  
+
+## 📦 Publicação
+
+- Código hospedado no GitHub.  
+- Build automatizado com GitHub Actions.  
+- Arquivo `.AAB` enviado para Google Play Console.  
+- Atualizações publicadas como novas versões na Play Store.  
+
+---![Avanzia Smart](avanzia-banner.jpg)# 🎤 Avanzia Smart — Estúdio Palco Melodia
 Sistema proprietário da **Agência Avanço Designer Gráfico**, criado para unir tecnologia, louvor, acessibilidade...# AVANZIA Smart — Sistema Inteligente da Agência AVANÇO Designer Gráfico
 
 *Avanzia Smart* é um sistema próprio da agência *AVANÇO Designer Gráfico*, criado para transformar negócios em máquinas de vendas diárias com inteligência invisível, automação e fidelização.
@@ -1757,8 +1811,463 @@ Este aplicativo foi criado para oferecer uma experiência completa de conteúdo 
 git clone https://github.com/seu-usuario/seu-repositorio.git
 cd seu-repositorio/server
 npm install
-npm start
-## 🛠 Instalação
+npm start# Avanzia Smart
+
+Aplicativo inteligente para comerciantes, com motor automático por segmento e integração com IAs de criação de vídeo.
+
+## 🚀 Funcionalidades
+
+- **Motor por segmento**  
+  Cada comerciante escolhe seu nicho (Restaurante, Moda, Bebê, Calçados etc.).  
+  O sistema ativa automaticamente os templates e fluxos adequados.  
+
+- **Integração com IAs de vídeo**  
+  - Pixverse → vídeos criativos e visuais  
+  - HeyGen → vídeos com avatar apresentando produtos  
+  - Pictory → vídeos explicativos e educativos  
+
+- **Automação completa**  
+  O comerciante só adiciona seus dados (nome da loja, produtos, fotos).  
+  O sistema gera vídeos e campanhas automaticamente, sem complicação.  
+
+## 💳 Modelo de cobrança
+
+- **Teste grátis**  
+  - Cada novo usuário recebe **3 vídeos gratuitos** para experimentar.  
+  - Você também pode testar gratuitamente antes de usar em produção.  
+
+- **Pay‑per‑use (sem plano mensal)**  
+  - Pixverse: R$ 15 por vídeo  
+  - HeyGen: R$ 20 por vídeo  
+  - Pictory: R$ 10 por vídeo  
+  - O cliente paga apenas quando gera um vídeo.  
+  - Compras são feitas via **Google Play Billing** como consumíveis.  
+
+## 📱 Fluxo de uso
+
+1. Baixe o Avanzia Smart na Play Store.  
+2. Escolha seu segmento (ex.: Moda, Restaurante).  
+3. Receba créditos grátis para testar.  
+4. Gere vídeos com Pixverse, HeyGen ou Pictory.  
+5. Pague apenas pelo que usar, sem mensalidade.  
+
+## 🛠️ Tecnologias
+
+- Android (Kotlin/Java)  
+- Google Play Billing (consumíveis)  
+- Firebase (notificações push, Remote Config)  
+- GitHub Actions (CI/CD para build e release)  
+
+## 📦 Publicação
+
+- Código hospedado no GitHub.  
+- Build automatizado com GitHub Actions.  
+- Arquivo `.AAB` enviado para Google Play Console.  
+- Atualizações publicadas como novas versões na Play Store.  
+{
+  "trialCredits": 3,
+  "pricing": {
+    "pixverse": 15.0,
+    "heygen": 20.0,
+    "pictory": 10.0
+  },
+  "segments": {
+    "restaurante": {
+      "portaId": "porta_restaurante",
+      "titulo": "Restaurante",
+      "botoes": [
+        { "id": "btn_cardapio", "label": "Cardápio em vídeo", "acao": "video_pixverse" },
+        { "id": "btn_promocoes", "label": "Promoções relâmpago", "acao": "video_pixverse" },
+        { "id": "btn_avatar_pratos", "label": "Apresentar pratos (avatar)", "acao": "video_heygen" },
+        { "id": "btn_dica_cozinha", "label": "Dica de cozinha", "acao": "video_pictory" }
+      ],
+      "campanhasSazonais": [
+        { "id": "fim_ano", "titulo": "Fim de Ano", "creditosSugeridos": 30, "mensagem": "Cardápios especiais, combos natalinos, reveillón." },
+        { "id": "verao", "titulo": "Verão", "creditosSugeridos": 20, "mensagem": "Bebidas geladas, pratos leves, promoções de temporada." }
+      ],
+      "mensagensMassa": [
+        "Hoje tem combo do chef com 20% de desconto!",
+        "Almoço executivo: rápido, saboroso e com preço especial."
+      ],
+      "trafegoPago": [
+        { "plataforma": "Meta Ads", "objetivo": "Conversões", "criativo": "Vídeo Pixverse 15s" },
+        { "plataforma": "Google Ads", "objetivo": "Local Campaign", "criativo": "Avatar HeyGen apresentando o prato do dia" }
+      ]
+    },
+    "moda": {
+      "portaId": "porta_moda",
+      "titulo": "Moda",
+      "botoes": [
+        { "id": "btn_vitrine", "label": "Vitrine em vídeo", "acao": "video_pixverse" },
+        { "id": "btn_look_dia", "label": "Look do dia (avatar)", "acao": "video_heygen" },
+        { "id": "btn_dica_estilo", "label": "Dica de estilo", "acao": "video_pictory" }
+      ],
+      "campanhasSazonais": [
+        { "id": "fim_ano", "titulo": "Fim de Ano", "creditosSugeridos": 30, "mensagem": "Festas, brilho, looks para celebrações." },
+        { "id": "meia_estacao", "titulo": "Meia estação", "creditosSugeridos": 15, "mensagem": "Novas camadas, peças versáteis." }
+      ],
+      "mensagensMassa": [
+        "Chegaram os lançamentos da semana. Confira!",
+        "Ganhe 10% no segundo item do look."
+      ],
+      "trafegoPago": [
+        { "plataforma": "Meta Ads", "objetivo": "Engajamento", "criativo": "Avatar HeyGen apresentando a vitrine" }
+      ]
+    },
+    "bebe": {
+      "portaId": "porta_bebe",
+      "titulo": "Bebê",
+      "botoes": [
+        { "id": "btn_enxoval", "label": "Enxoval em vídeo", "acao": "video_pixverse" },
+        { "id": "btn_dica_mae", "label": "Dica para mamães e papais", "acao": "video_pictory" }
+      ],
+      "campanhasSazonais": [
+        { "id": "dia_maes", "titulo": "Dia das Mães", "creditosSugeridos": 20, "mensagem": "Presentes e kits especiais." }
+      ],
+      "mensagensMassa": [
+        "Promoção em bodies e macacões!",
+        "Itens essenciais do enxoval com preço especial."
+      ],
+      "trafegoPago": [
+        { "plataforma": "Meta Ads", "objetivo": "Vendas catálogo", "criativo": "Vídeo Pixverse do enxoval" }
+      ]
+    },
+    "calcados": {
+      "portaId": "porta_calcados",
+      "titulo": "Calçados",
+      "botoes": [
+        { "id": "btn_lancamentos", "label": "Lançamentos em vídeo", "acao": "video_pixverse" },
+        { "id": "btn_avatar_modelo", "label": "Avatar apresentando coleção", "acao": "video_heygen" }
+      ],
+      "campanhasSazonais": [
+        { "id": "volta_as_aulas", "titulo": "Volta às aulas", "creditosSugeridos": 20, "mensagem": "Tênis, conforto e durabilidade." }
+      ],
+      "mensagensMassa": [
+        "Frete especial na nova coleção.",
+        "Desconto progressivo em pares."
+      ],
+      "trafegoPago": [
+        { "plataforma": "Google Ads", "objetivo": "Local Campaign", "criativo": "Avatar com prova social" }
+      ]
+    }
+  },
+  "padraoMensagens": "Todas as lojas recebem mensagens padrão do seu segmento, personalizadas com os dados do produto e da loja."
+}
+---data class Botao(val id: String, val label: String, val acao: String)
+data class Campanha(val id: String, val titulo: String, val creditosSugeridos: Int, val mensagem: String)
+
+data class SegmentoCfg(
+    val portaId: String,
+    val titulo: String,
+    val botoes: List<Botao>,
+    val campanhasSazonais: List<Campanha>,
+    val mensagensMassa: List<String>,
+    val trafegoPago: List<Map<String, String>>
+)
+
+class SegmentoController(private val cfg: Map<String, SegmentoCfg>) {
+
+    fun aplicarPara(userSegmento: String, ui: UiBinder, billing: Billing) {
+        val s = cfg[userSegmento] ?: return
+
+        ui.setPortaTitulo(s.titulo)
+        ui.renderBotoes(s.botoes.map { it.label to { executarAcao(it.acao, billing) } })
+        ui.renderCampanhas(s.campanhasSazonais)
+        ui.renderMensagensMassa(s.mensagensMassa)
+        ui.renderTrafegoPago(s.trafegoPago)
+    }
+
+    private fun executarAcao(acao: String, billing: Billing) {
+        when (acao) {
+            "video_pixverse" -> cobrarEGerar(billing, "pixverse_video_unit") { gerarPixverse() }
+            "video_heygen"   -> cobrarEGerar(billing, "heygen_video_unit")   { gerarHeyGen() }
+            "video_pictory"  -> cobrarEGerar(billing, "pictory_video_unit")  { gerarPictory() }
+        }
+    }
+
+    private fun cobrarEGerar(billing: Billing, sku: String, gerar: () -> Unit) {
+        if (Trials.hasCredits()) {
+            Trials.consumeOne()
+            gerar()
+        } else {
+            billing.comprarConsumivel(sku) {
+                gerar()
+                billing.consumir(sku)
+                Uso.registrar(sku)
+            }
+        }
+    }
+
+    private fun gerarPixverse() { /* integração */ }
+    private fun gerarHeyGen() { /* integração */ }
+    private fun gerarPictory() { /* integração */ }
+}
+
+interface UiBinder {
+    fun setPortaTitulo(titulo: String)
+    fun renderBotoes(pares: List<Pair<String, () -> Unit>>)
+    fun renderCampanhas(campanhas: List<Campanha>)
+    fun renderMensagensMassa(msgs: List<String>)
+    fun renderTrafegoPago(items: List<Map<String, String>>)
+}
+
+object Trials { fun hasCredits() = true; fun consumeOne() {} }
+object Uso { fun registrar(sku: String) {} }
+
+class Billing {
+    fun comprarConsumivel(sku: String, onSuccess: () -> Unit) { /* inicia fluxo de compra */ }
+    fun consumir(sku: String) { /* marca consumo */ }
+}
+## fun personalize(msg: String, loja: Loja): String {
+    return msg
+        .replace("{LOJA}", loja.nome)
+        .replace("{PRODUTO}", loja.produtoDestaque)
+        .replace("{PRECO}", loja.precoDestaque)
+}
+
+data class Loja(val nome: String, val produtoDestaque: String, val precoDestaque: String) ## 📚 Segmentos, campanhas sazonais e mensagens
+
+- **Padrão por segmento:** cada loja escolhe seu nicho e recebe automaticamente porta, botões e fluxos específicos (Restaurante, Moda, Bebê, Calçados).
+- **Campanhas sazonais:** catálogo pronto (Fim de Ano, Verão, Meia Estação, Volta às Aulas), com sugestão de créditos e mensagens.
+- **Mensagens em massa:** textos de alto impacto por segmento, personalizados com dados da loja (nome, produto, preço) sem esforço manual.
+- **Tráfego pago:** sugestões de criativos e objetivos por plataforma (Meta Ads, Google Ads), alinhados ao segmento.
+- **Atualização remota:** toda a configuração (campanhas, mensagens, preços) vem de JSON remoto, permitindo mudanças sem atualizar o app.
+
+## 💳 Teste grátis e pay‑per‑use
+
+- **Teste grátis:** cada novo usuário recebe 3 vídeos gratuitos.
+- **Sem mensalidade:** cobrança por uso via compras consumíveis (Play Billing).
+- **Exemplo de preços:** Pixverse R$ 15, HeyGen R$ 20, Pictory R$ 10 por vídeo.
+- **Transparência:** modal de confirmação mostra o preço antes de cada geração de vídeo e histórico registra cada uso.
+
+## 🔌 Integração dinâmica
+
+- **Habilitação automática:** a UI e os fluxos são montados a partir do JSON (porta, botões, campanhas).
+- **Personalização:** mensagens padrão do segmento são preenchidas com dados da loja (nome, produto, preço).
+- **Escalabilidade:** novos segmentos podem ser adicionados apenas atualizando o JSON remoto.{
+  "trialCredits": 3,
+  "pricing": {
+    "pixverse": 15.0,
+    "heygen": 20.0,
+    "pictory": 10.0
+  },
+  "segments": {
+    "restaurante": {
+      "campanhasSazonais": [
+        { "titulo": "Fim de Ano", "mensagem": "Cardápios especiais e combos natalinos." },
+        { "titulo": "Verão", "mensagem": "Pratos leves e bebidas geladas." }
+      ],
+      "mensagensMassa": [
+        "Combo do chef com 20% de desconto!",
+        "Almoço executivo por R$ 29,90."
+      ]
+    },
+    "moda": {
+      "campanhasSazonais": [
+        { "titulo": "Fim de Ano", "mensagem": "Looks de festa e brilho." },
+        { "titulo": "Meia estação", "mensagem": "Peças versáteis e camadas." }
+      ],
+      "mensagensMassa": [
+        "Lançamentos da semana disponíveis!",
+        "Ganhe 10% no segundo item."
+      ]
+    },
+    "calcados": {
+      "campanhasSazonais": [
+        { "titulo": "Volta às aulas", "mensagem": "Tênis confortáveis e resistentes." },
+        { "titulo": "Fim de Ano", "mensagem": "Sapatos sociais e sandálias." }
+      ],
+      "mensagensMassa": [
+        "Nova coleção com frete grátis.",
+        "Desconto progressivo em pares."
+      ]
+    }
+  }
+}btnLoja.setOnClickListener {
+    abrirPagina("https://minhaloja.com")
+}
+
+btnWhatsApp.setOnClickListener {
+    abrirWhatsApp("+55 62 99999-9999")
+}
+
+btnTrial.setOnClickListener {
+    iniciarCadastroTrial()
+}
+
+btnGerarVideo.setOnClickListener {
+    abrirEscolhaIA()
+}
+
+fun abrirPagina(url: String) {
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    startActivity(intent)
+}
+
+fun abrirWhatsApp(numero: String) {
+    val uri = Uri.parse("https://wa.me/$numero")
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+    startActivity(intent)
+}
+
+fun iniciarCadastroTrial() {
+    // fluxo de cadastro + ativação de créditos grátis
+}# Avanzia Smart
+
+Aplicativo inteligente para comerciantes, com motor automático por segmento e integração com IAs de criação de vídeo.  
+Este sistema é um **modelo universal**, aplicável a qualquer segmento (Restaurante, Moda, Calçados, Bebê, Beleza, Eletrônicos etc.).
+
+---
+
+## 🚀 Funcionalidades principais
+
+- **Motor por segmento**  
+  Cada comerciante escolhe seu nicho e recebe automaticamente uma "porta" com botões e fluxos prontos.  
+  Exemplo de segmentos já configurados:
+  - Restaurante 🍽️
+  - Moda 👗
+  - Calçados 👟
+
+- **Integração com IAs de vídeo**  
+  - Pixverse → vídeos criativos e visuais  
+  - HeyGen → vídeos com avatar apresentando produtos  
+  - Pictory → vídeos explicativos e educativos  
+
+- **Automação completa**  
+  O comerciante só adiciona seus dados (nome da loja, produtos, fotos).  
+  O sistema gera vídeos, campanhas e mensagens automaticamente, sem complicação.
+
+---
+
+## 💳 Modelo de cobrança
+
+- **Teste grátis**  
+  - Cada novo usuário recebe **3 vídeos gratuitos** para experimentar.  
+  - O administrador também pode testar gratuitamente antes de usar em produção.  
+
+- **Pay‑per‑use (sem plano mensal)**  
+  - Pixverse: R$ 15 por vídeo  
+  - HeyGen: R$ 20 por vídeo  
+  - Pictory: R$ 10 por vídeo  
+  - O cliente paga apenas quando gera um vídeo.  
+  - Compras são feitas via **Google Play Billing** como consumíveis.  
+
+---
+
+## 📚 Exemplos de campanhas e mensagens
+
+### 🍽️ Restaurante
+- **Campanhas sazonais:** Fim de Ano, Verão  
+- **Mensagens em massa:**  
+  - “Combo do chef com 20% de desconto!”  
+  - “Almoço executivo por R$ 29,90.”
+
+### 👗 Moda
+- **Campanhas sazonais:** Fim de Ano, Meia Estação  
+- **Mensagens em massa:**  
+  - “Chegaram os lançamentos da semana. Confira já!”  
+  - “Na compra de 2 peças, ganhe 10% de desconto.”
+
+### 👟 Calçados
+- **Campanhas sazonais:** Volta às Aulas, Fim de Ano  
+- **Mensagens em massa:**  
+  - “Nova coleção de tênis com frete grátis.”  
+  - “Desconto progressivo em pares.”
+
+---
+
+## 📊 Controle financeiro inteligente
+
+- Cada comerciante tem uma planilha automática dentro do app.  
+- Funções principais:  
+  - **Entrada e saída:** registra vendas e despesas.  
+  - **Controle de gastos:** identifica onde está gastando além da conta.  
+  - **Organização automática de notas:**  
+    - O cliente tira um print ou foto da nota.  
+    - O sistema lê automaticamente os dados (valor, produto, data).  
+    - Os cálculos já são embutidos e lançados na planilha.  
+- Relatórios mensais e anuais prontos, com sugestões de melhoria.
+
+---
+
+## 📦 Publicação
+
+- Código hospedado no GitHub.  
+- Build automatizado com GitHub Actions.  
+- Arquivo `.AAB` enviado para Google Play Console.  
+- Atualizações publicadas como novas versões na Play Store.  
+
+---
+
+## ✅ Observação importante
+
+Este sistema é um **modelo aplicável a todos os segmentos**.  
+Os exemplos de Restaurante, Moda e Calçados são apenas ilustrativos.  
+Novos segmentos podem ser adicionados facilmente atualizando o JSON remoto e configurando suas campanhas e mensagens.## 📂 Exemplo de JSON remoto (modelo universal)
+
+Este JSON serve como **modelo para todos os segmentos**.  
+O aplicativo lê esse arquivo e aplica automaticamente campanhas, mensagens e botões para cada nicho.  
+Novos segmentos podem ser adicionados apenas incluindo novos blocos dentro de `"segments"`.
+
+```json
+{
+  "trialCredits": 3,
+  "pricing": {
+    "pixverse": 15.0,
+    "heygen": 20.0,
+    "pictory": 10.0
+  },
+  "segments": {
+    "restaurante": {
+      "titulo": "Restaurante",
+      "botoes": [
+        { "label": "Cardápio em vídeo", "acao": "video_pixverse" },
+        { "label": "Promoções relâmpago", "acao": "video_pixverse" },
+        { "label": "Avatar apresentando pratos", "acao": "video_heygen" }
+      ],
+      "campanhasSazonais": [
+        { "titulo": "Fim de Ano", "mensagem": "Cardápios especiais e combos natalinos." },
+        { "titulo": "Verão", "mensagem": "Pratos leves e bebidas geladas." }
+      ],
+      "mensagensMassa": [
+        "Combo do chef com 20% de desconto!",
+        "Almoço executivo por R$ 29,90."
+      ]
+    },
+    "moda": {
+      "titulo": "Moda",
+      "botoes": [
+        { "label": "Vitrine em vídeo", "acao": "video_pixverse" },
+        { "label": "Look do dia (avatar)", "acao": "video_heygen" }
+      ],
+      "campanhasSazonais": [
+        { "titulo": "Fim de Ano", "mensagem": "Looks de festa e brilho." },
+        { "titulo": "Meia estação", "mensagem": "Peças versáteis e camadas." }
+      ],
+      "mensagensMassa": [
+        "Chegaram os lançamentos da semana. Confira já!",
+        "Na compra de 2 peças, ganhe 10% de desconto."
+      ]
+    },
+    "calcados": {
+      "titulo": "Calçados",
+      "botoes": [
+        { "label": "Lançamentos em vídeo", "acao": "video_pixverse" },
+        { "label": "Avatar apresentando coleção", "acao": "video_heygen" }
+      ],
+      "campanhasSazonais": [
+        { "titulo": "Volta às Aulas", "mensagem": "Tênis confortáveis e resistentes." },
+        { "titulo": "Fim de Ano", "mensagem": "Sapatos sociais e sandálias." }
+      ],
+      "mensagensMassa": [
+        "Nova coleção de tênis com frete grátis.",
+        "Desconto progressivo em pares."
+      ]
+    }
+  },
+  "padraoMensagens": "Todas as lojas recebem mensagens padrão do seu segmento, personalizadas com os dados da loja."
+}
+Instalação
 
 
 ```bash
