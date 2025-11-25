@@ -2649,7 +2649,32 @@ fun gerarEBaixarVideoPago(
             }
         }
     }
-}
+}# 🦅 Avanzia Smart
+
+**Resultados reais. Conecte, automatize e cresça.**
+
+Avanzia Smart é um sistema inovador que une tecnologia, automação e design futurista para facilitar a vida de clientes e empreendedores.  
+Inspirado em modelos globais de sucesso (como o estilo Shay), mas com identidade própria, o Avanzia Smart traz uma experiência moderna, intuitiva e impactante.
+
+---
+
+## 🚀 Funcionalidades
+
+- 🔁 Carrossel automático de promoções (banners deslizantes com cupons e ofertas)  
+- 🛒 Segmentação por categorias (moda, beleza, mercado, calçados, etc.)  
+- 🦅 Splash screen animada com águia realista e slogan oficial  
+- 🎯 Sistema de cupons dinâmico integrado  
+- 🔔 Notificações personalizadas para cada cliente  
+- 🌌 Estilo visual Neon Cristal com foco em inovação
+
+---AVZSMART-PROFILE-1125-BRGO
+
+## 📲 Instalação
+
+Clone o projeto e abra no Android Studio:
+
+```bash
+git clone https://github.com/seuusuario/avanzia-smart.git
 npm install express cors body-parser multer csv-parse xlsx  
 node server.js
 
