@@ -2674,7 +2674,412 @@ Inspirado em modelos globais de sucesso (como o estilo Shay), mas com identidade
 Clone o projeto e abra no Android Studio:
 
 ```bash
-git clone https://github.com/seuusuario/avanzia-smart.git
+git clone https://github.com/seuusuario/avanzia-smart.git<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.avanzia.ui.SplashFragment"
+        android:label="Splash">
+        <action
+            android:id="@+id/action_splash_to_home"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.avanzia.ui.HomeFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/action_home_to_segment"
+            app:destination="@id/segmentFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/segmentFragment"
+        android:name="com.avanzia.ui.SegmentFragment"
+        android:label="Segmentos">
+        <action
+            android:id="@+id/action_segment_to_promotions"
+            app:destination="@id/promotionsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/promotionsFragment"
+        android:name="com.avanzia.ui.PromotionsFragment"
+        android:label="Promoções">
+        <action
+            android:id="@+id/action_promotions_to_profile"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.avanzia.ui.ProfileFragment"
+        android:label="Perfil" />
+</navigation>findNavController().navigate(R.id.action_splash_to_home)
+findNavController().navigate(R.id.action_home_to_segment)
+findNavController().navigate(R.id.action_segment_to_promotions)
+findNavController().navigate(R.id.action_promotions_to_profile)<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A1230">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/segmentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Escolha seu segmento"
+        android:textColor="#00C8FF"
+        android:textSize="22sp"
+        android:layout_marginTop="24dp"/>
+
+    <!-- Grid de categorias -->
+    <GridLayout
+        android:id="@+id/segmentGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:layout_marginTop="32dp"
+        android:padding="16dp">
+
+        <!-- Moda -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+            <ImageView
+                android:src="@drawable/ic_moda"
+                android:layout_width="64dp"
+                android:layout_height="64dp"/>
+            <TextView
+                android:text="Moda"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <!-- Beleza -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+            <ImageView
+                android:src="@drawable/ic_beleza"
+                android:layout_width="64dp"
+                android:layout_height="64dp"/>
+            <TextView
+                android:text="Beleza"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <!-- Casa -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+            <ImageView
+                android:src="@drawable/ic_casa"
+                android:layout_width="64dp"
+                android:layout_height="64dp"/>
+            <TextView
+                android:text="Casa"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <!-- Mercado -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+            <ImageView
+                android:src="@drawable/ic_mercado"
+                android:layout_width="64dp"
+                android:layout_height="64dp"/>
+            <TextView
+                android:text="Mercado"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <!-- Calçados -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+            <ImageView
+                android:src="@drawable/ic_calcados"
+                android:layout_width="64dp"
+                android:layout_height="64dp"/>
+            <TextView
+                android:text="Calçados"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <!-- Tecnologia -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+            <ImageView
+                android:src="@drawable/ic_tecnologia"
+                android:layout_width="64dp"
+                android:layout_height="64dp"/>
+            <TextView
+                android:text="Tecnologia"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+    </GridLayout>
+</LinearLayout><LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A1230">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/promoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Promoções em destaque"
+        android:textColor="#00C8FF"
+        android:textSize="22sp"
+        android:layout_marginTop="24dp"/>
+
+    <!-- Carrossel de banners -->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/promoViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Indicadores do carrossel -->
+    <LinearLayout
+        android:id="@+id/promoIndicators"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Lista de cupons -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/couponRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:padding="16dp"/>
+</LinearLayout><ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A1230">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <!-- Foto de perfil -->
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_profile_placeholder"
+            android:background="@drawable/circle_background"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Nome do usuário -->
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome do Usuário"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_marginTop="12dp"/>
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/profileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="usuario@email.com"
+            android:textColor="#AAAAAA"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Histórico de cupons -->
+        <TextView
+            android:id="@+id/couponHistoryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Meus Cupons"
+            android:textColor="#00C8FF"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/couponHistoryRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Preferências -->
+        <TextView
+            android:id="@+id/preferencesTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preferências"
+            android:textColor="#00C8FF"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <CheckBox
+                android:id="@+id/prefModa"
+                android:text="Moda"
+                android:textColor="#FFFFFF"/>
+
+            <CheckBox
+                android:id="@+id/prefBeleza"
+                android:text="Beleza"
+                android:textColor="#FFFFFF"/>
+
+            <CheckBox
+                android:id="@+id/prefCasa"
+                android:text="Casa"
+                android:textColor="#FFFFFF"/>
+
+            <CheckBox
+                android:id="@+id/prefMercado"
+                android:text="Mercado"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+        <!-- Botão de sair -->
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sair"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#FF4444"
+            android:layout_marginTop="32dp"/>
+    </LinearLayout>
+</ScrollView># 🦅 Avanzia Smart
+
+**Resultados reais. Conecte, automatize e cresça.**
+
+Avanzia Smart é um aplicativo inovador que conecta empresas e clientes com tecnologia, automação e impacto visual moderno.  
+Este guia apresenta o fluxo principal de navegação e as telas oficiais do sistema.
+
+---
+
+## 🚀 Fluxo de Navegação
+
+1. **Splash Screen**  
+   - Águia azul animada em destaque  
+   - Slogan oficial: *Conecte, automatize e cresça.*  
+   - Primeira impressão de impacto e confiança  
+
+2. **Tela Principal (Home)**  
+   - Fundo azul profundo com efeitos cristal  
+   - Três esferas brilhantes:  
+     - 🌐 Conexão  
+     - ⚙️ Automação  
+     - 📈 Crescimento  
+   - Botão central: **Entrar no Avanzia**
+
+3. **Tela de Segmentos**  
+   - Grid com categorias principais:  
+     - Moda 👗  
+     - Beleza 💄  
+     - Casa 🏠  
+     - Mercado 🛒  
+     - Calçados 👟  
+     - Tecnologia 💻  
+   - Interface clara e acolhedora para escolha rápida
+
+4. **Tela de Promoções**  
+   - Carrossel automático de banners com ofertas  
+   - Indicadores circulares de posição  
+   - Lista dinâmica de cupons com botões **Ativar** ou **Salvar**
+
+5. **Tela de Perfil**  
+   - Foto de perfil circular  
+   - Nome e email do usuário  
+   - Histórico de cupons utilizados  
+   - Preferências configuráveis por segmento  
+   - Botão de sair em destaque
+
+---
+
+## 🛠️ Tecnologias
+
+- Kotlin + XML (Android)  
+- Jetpack Navigation (fluxo de telas)  
+- ViewPager (carrossel de promoções)  
+- RecyclerView (lista de cupons e histórico)  
+- Firebase (notificações e cupons dinâmicos)  
+
+---
+
+## 🗺️ Roadmap
+
+- [x] Splash screen com águia e slogan  
+- [x] Tela principal com esferas  
+- [x] Segmentos com categorias  
+- [x] Promoções com carrossel e cupons  
+- [x] Perfil com histórico e preferências  
+- [ ] Dashboard para lojistas  
+- [ ] Versão iOS  
+- [ ] Versão Web (GitHub Pages)
+
+---
+
+## 📢 Licença
+
+Este projeto está sob a licença MIT.  
+Sinta-se livre para usar, modificar e contribuir.
+
+---
+
+## ✨ Desenvolvido por
+
+Edilza & Copilot — com visão, criatividade e impacto global.
 npm install express cors body-parser multer csv-parse xlsx  
 node server.js
 
