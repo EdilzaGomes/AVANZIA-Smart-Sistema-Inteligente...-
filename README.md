@@ -3045,8 +3045,73 @@ Este guia apresenta o fluxo principal de navegação e as telas oficiais do sist
    - Preferências configuráveis por segmento  
    - Botão de sair em destaque
 
----
+---git add CONTRIBUTING.md
+git commit -m "Cria guia de contribuição para colaboradores do Avanzia Smart"
+git push origin maingit add ROADMAP.md
+git commit -m "Adiciona roadmap com metas futuras do Avanzia Smart"
+git push origin mainavanzia-smart/
+├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── ROADMAP.md
+├── app/                # Código Android
+├── web/                # Versão web/PWA
+├── desktop/            # Versão desktop
+└── docs/               # Documentação e imagens
+# Contribuindo com o Avanzia Smart
 
+Obrigada por seu interesse em colaborar com o Avanzia Smart!  
+Este projeto busca inovação, inclusão e impacto real.
+
+## Como contribuir
+
+1. Fork este repositório
+2. Crie uma branch: `git checkout -b minha-contribuição`
+3. Faça suas alterações
+4. Envie um pull request com descrição clara
+
+## Tipos de contribuição
+
+- Correções de bugs
+- Novas funcionalidades
+- Melhorias visuais
+- Sugestões de layout ou navegação
+- Traduções e acessibilidade
+
+## Regras básicas
+
+- Mantenha o estilo visual consistente (neon cristal + azul profundo)
+- Use nomes claros para variáveis e componentes
+- Documente suas alterações no `README.md` se necessário
+
+## Comunidade
+
+Sinta-se à vontade para abrir issues com ideias, dúvidas ou sugestões.# Roadmap — Avanzia Smart
+
+Este documento apresenta os próximos passos e metas do projeto.
+
+## ✅ Concluído
+
+- Splash screen com águia e slogan
+- Tela principal com esferas
+- Segmentos com categorias
+- Promoções com carrossel e cupons
+- Perfil com histórico e preferências
+
+## 🔜 Em desenvolvimento
+
+- Dashboard para lojistas
+- Integração com sistema de cupons em tempo real
+- Notificações push personalizadas
+- Versão iOS
+- Versão Web (GitHub Pages)
+
+## 💡 Ideias futuras
+
+- Inteligência de recomendação por perfil
+- Modo escuro adaptativo
+- Área de eventos e campanhas locais
+- Integração com redes sociais
 ## 🛠️ Tecnologias
 
 - Kotlin + XML (Android)  
