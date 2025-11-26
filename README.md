@@ -3140,8 +3140,468 @@ Este documento apresenta os próximos passos e metas do projeto.
 Este projeto está sob a licença MIT.  
 Sinta-se livre para usar, modificar e contribuir.
 
+---# 📱 Avanzia Smart — README
+
+## 🎯 Propósito
+Organizar a vida com propósito, fé e inteligência, oferecendo tempo para adorar a Deus e cuidar do que é mais precioso: **vidas**.
+
 ---
 
+## ✅ Checklist do Projeto
+
+### 🎶 Melodia Palco
+- [x] Entrada principal do app com destaque visual e espiritual
+- [x] Ferramentas: Criar Louvor, Inspirar Acordes, Publicar Letra, Planner Espiritual
+- [x] Frase guia: *A música vai às ruas — arte, fé e transformação*
+
+### 📚 Projetos com Propósito
+- [x] Seção “Adote um Projeto” com cards e botão “Quero apoiar”
+- [x] Projetos integrados:
+  - 🌸 Menina Flor
+  - 🙏 Organizando Minha Vida com Jesus
+  - ❤️ Um Novo Coração
+  - 🎒 Amigo da Escola
+  - 📖 Livro *Novo Tempo*
+
+### 🧒 Projeto Amigos da Escola
+- [x] Missão: formar um trio entre pais, professores e alunos
+- [x] Foco em educação com valores, saúde, esforço e vida financeira desde cedo
+- [x] Frase guia: *A melhor semente em terra produtiva*
+
+### 📖 Livro Novo Tempo
+- [x] Trechos inspiradores integrados aos projetos
+- [x] Espaço para leitura, audição e compartilhamento
+- [x] Frase guia: *Eis que farei uma coisa nova — Isaías 43:19*
+
+### 🧭 Navegação Espiritual e Inteligente
+- [x] Tela de entrada: *Aproveitando Meu Tempo com Propósito*
+- [x] Painel Melodia Palco como destaque inicial
+- [x] Planner Espiritual com foco diário: fé, família, saúde, trabalho
+- [x] Estratégia “Bolha do Propósito” com relatório de paz
+
+### 🛍️ Comércio com Propósito
+- [x] Navegação inspirada em apps modernos
+- [x] Vitrine com produtos cristãos, cupons ativáveis e painel de impacto
+- [x] Espaço para empreendedores divulgarem com facilidade e propósito
+
+---
+
+## 💬 Frases-chave do projeto
+- *Você tem um chamado. E agora, tem uma ferramenta que respeita esse chamado.*
+- *Este é o dia que o Senhor fez — vamos viver com propósito e louvor.*
+- *Ensina a criança no caminho em que deve andar… — Provérbios 22:6*# 📱 Avanzia Smart — README Comercial
+
+## 🌟 Visão
+O Avanzia Smart é mais do que um aplicativo: é uma ferramenta para **organizar a vida com propósito**, unir fé e tecnologia, e oferecer tempo para adorar a Deus enquanto cuida do que é mais precioso — **vidas**.
+
+---
+
+## 🚀 O que oferecemos
+
+### 🎶 Melodia Palco
+- Palco digital para louvor e criação musical
+- Ferramentas: Criar Louvor, Inspirar Acordes, Publicar Letra
+- Planner Espiritual integrado
+
+### 📚 Projetos com Propósito
+- Seção “Adote um Projeto” com apoio direto
+- Projetos integrados:
+  - 🌸 Menina Flor
+  - 🙏 Organizando Minha Vida com Jesus
+  - ❤️ Um Novo Coração
+  - 🎒 Amigos da Escola
+  - 📖 Livro *Novo Tempo*
+
+### 🧒 Amigos da Escola
+- Responsabilidade compartilhada entre pais, professores e alunos
+- Educação financeira, saúde e valores cristãos desde cedo
+- Frase guia: *A melhor semente em terra produtiva*
+
+### 🧭 Navegação Inteligente
+- Tela inicial: *Aproveitando Meu Tempo com Propósito*
+- Painel Melodia Palco como entrada principal
+- Estratégia “Bolha do Propósito” para conciliar fé, família, saúde e trabalho
+
+### 🛍️ Comércio com Propósito
+- Vitrine inspirada em apps modernos
+- Produtos cristãos com cupons ativáveis
+- Espaço para empreendedores divulgarem com impacto
+
+---
+
+## 💬 Mensagens-chave
+- *Você tem um chamado. E agora, tem uma ferramenta que respeita esse chamado.*
+- *Este é o dia que o Senhor fez — vamos viver com propósito e louvor.*
+- *Ensina a criança no caminho em que deve andar… — Provérbios 22:6*
+
+---
+
+## 🤝 Convite
+O Avanzia Smart é feito para quem deseja unir **profissionalismo e espiritualidade**.  
+Seja parceiro, apoie um projeto ou leve essa experiência para sua comunidade.# 🧭 Fluxo de Navegação — Avanzia Smart
+
+## Tela Inicial
+- 🎶 **Painel Melodia Palco** (entrada principal)
+  - Botão: *Entrar no Louvor*
+  - Destaque visual com ícone neon e slogan: *Aproveitando Meu Tempo com Propósito*
+
+---
+
+## Menu Principal
+1. 📖 **Vida Cristã**
+   - Devocionais diários
+   - Bíblia em áudio
+   - Louvor diário
+   - Planner Espiritual
+
+2. 🤝 **Projetos com Propósito**
+   - 🌸 Menina Flor
+   - 🙏 Organizando Minha Vida com Jesus
+   - ❤️ Um Novo Coração
+   - 🎒 Amigos da Escola
+   - 📖 Livro *Novo Tempo*
+   - Cada projeto com card, descrição e botão *Quero apoiar*
+
+3. 🗓️ **Planner Espiritual**
+   - Organização do dia com foco em fé, família, saúde e trabalho
+   - Estratégia “Bolha do Propósito”
+   - Relatório de paz ao final do dia
+
+4. 📚 **Biblioteca Autoral**
+   - Livro *Novo Tempo*
+   - Testemunhos e mensagens inspiradoras
+   - Espaço para leitura e audição
+
+5. 🛍️ **Comércio com Propósito**
+   - Vitrine de produtos cristãos
+   - Cupons ativáveis
+   - Painel de impacto social
+   - Espaço para empreendedores
+
+---
+
+## Navegação Inteligente
+- 🔍 Barra de busca para louvores, projetos e produtos
+- 📊 Painel de impacto: mostra apoio a projetos e progresso espiritual
+- 💬 Notificações com propósito: “Hora de louvar”, “Você apoiou uma causa hoje”
+- 📱 Botões de ação rápida: compartilhar louvor, apoiar projeto, ler devocional
+
+---
+
+## Frases de Ativação
+- *Você tem um chamado. E agora, tem uma ferramenta que respeita esse chamado.*
+- *Este é o dia que o Senhor fez — vamos viver com propósito e louvor.*
+- *Ensina a criança no caminho em que deve andar… — Provérbios 22:6*# 🧭 Diagrama de Fluxo — Avanzia Smart
+
+Tela Inicial  
+   ↓  
+🎶 Painel Melodia Palco  
+   ↓  
+Menu Principal  
+   ├── 📖 Vida Cristã  
+   │     ├── Devocionais  
+   │     ├── Bíblia em áudio  
+   │     ├── Louvor diário  
+   │     └── Planner Espiritual  
+   │  
+   ├── 🤝 Projetos com Propósito  
+   │     ├── 🌸 Menina Flor  
+   │     ├── 🙏 Organizando Minha Vida com Jesus  
+   │     ├── ❤️ Um Novo Coração  
+   │     ├── 🎒 Amigos da Escola  
+   │     └── 📖 Livro *Novo Tempo*  
+   │  
+   ├── 🗓️ Planner Espiritual  
+   │     ├── Organização do dia  
+   │     ├── Estratégia “Bolha do Propósito”  
+   │     └── Relatório de paz  
+   │  
+   ├── 📚 Biblioteca Autoral  
+   │     ├── Livro *Novo Tempo*  
+   │     ├── Testemunhos  
+   │     └── Mensagens inspiradoras  
+   │  
+   └── 🛍️ Comércio com Propósito  
+         ├── Vitrine de produtos cristãos  
+         ├── Cupons ativáveis  
+         ├── Painel de impacto  
+         └── Espaço para empreendedores  
+
+---
+
+## 🔍 Navegação Inteligente
+- Barra de busca para louvores, projetos e produtos  
+- Painel de impacto: mostra apoio a projetos e progresso espiritual  
+- Notificações com propósito: “Hora de louvar”, “Você apoiou uma causa hoje”  
+- Botões de ação rápida: compartilhar louvor, apoiar projeto, ler devocional# 🌐 Organograma de Navegação — Avanzia Smart
+
+Tela Inicial
+   ↓
+🎶 Painel Melodia Palco
+   ↓
+Menu Principal
+   ├── 📖 Vida Cristã
+   │     ├── Devocionais
+   │     ├── Bíblia em áudio
+   │     ├── Louvor diário
+   │     └── Planner Espiritual
+   │
+   ├── 🤝 Projetos com Propósito
+   │     ├── 🌸 Menina Flor
+   │     ├── 🙏 Organizando Minha Vida com Jesus
+   │     ├── ❤️ Um Novo Coração
+   │     ├── 🎒 Amigos da Escola
+   │     └── 📖 Livro *Novo Tempo*
+   │
+   ├── 🗓️ Planner Espiritual
+   │     ├── Organização do dia
+   │     ├── Estratégia “Bolha do Propósito”
+   │     └── Relatório de paz
+   │
+   ├── 📚 Biblioteca Autoral
+   │     ├── Livro *Novo Tempo*
+   │     ├── Testemunhos
+   │     └── Mensagens inspiradoras
+   │
+   └── 🛍️ Comércio com Propósito
+         ├── Vitrine de produtos cristãos
+         ├── Cupons ativáveis
+         ├── Painel de impacto
+         └── Espaço para empreendedoresavanzia-smart/
+├── README.md                  # Visão geral do projeto (versão técnica e comercial)
+├── docs/
+│   ├── checklist.md           # Checklist completo do projeto
+│   ├── fluxo-navegacao.md     # Fluxo de navegação em texto
+│   ├── organograma.md         # Organograma visual em texto
+│   └── frases-chave.md        # Frases inspiradoras do projeto
+├── assets/
+│   ├── imagens/               # Imagens geradas (mockups, logos, telas)
+│   └── diagramas/             # Diagramas visuais (fluxo, organograma)
+├── projetos/
+│   ├── menina-flor.md
+│   ├── organizando-vida.md
+│   ├── novo-coracao.md
+│   ├── amigos-da-escola.md
+│   └── livro-novo-tempo.md
+├── app/
+│   ├── frontend/              # Interface do usuário (React Native, Flutter, etc.)
+│   ├── backend/               # Lógica de servidor (Node.js, Firebase, etc.)
+│   └── planner/               # Módulo do Planner Espiritual
+├── config/
+│   ├── routes.js              # Rotas de navegação
+│   └── settings.json          # Configurações do app
+└── LICENSE                    # Licença do projeto (opcional)# 🎒 Projeto Amigos da Escola
+
+## 🌱 Visão
+A melhor semente em terra produtiva.  
+Este projeto une pais, professores e alunos em um trio de responsabilidade, fé e futuro.
+
+## 🎯 Propósito
+Educar com valores cristãos, formar com fé e cultivar adultos saudáveis desde a infância.
+
+## 👨‍👩‍👧‍👦 Pais
+- Chamados a cuidar de perto
+- Envolvidos na rotina escolar
+- Responsáveis por plantar amor, limites e presença
+
+## 👩‍🏫 Professores
+- Chamados a ensinar com fé
+- Conscientes de que cada aula é uma semente
+- Responsáveis por formar caráter, inteligência e paz
+
+## 🧒 Crianças (alunos)
+- Terra fértil, prontas para crescer
+- Ensinadas desde cedo sobre saúde, esforço e finanças
+- Preparadas para serem adultos que dão frutos à sociedade
+
+## 📈 Ações do Projeto
+- Oficinas de educação financeira infantil
+- Devocionais para pais e professores
+- Trilhas de leitura com valores cristãos
+- Eventos escolares com louvor e testemunhos
+- Espaço no Avanzia Smart para acompanhamento e apoio
+
+## 📖 Versículo guia
+> “Ensina a criança no caminho em que deve andar…” — Provérbios 22:6
+
+## 💬 Frase inspiradora
+> A melhor semente em terra produtiva# 🌸 Projeto Menina Flor
+
+## 🌱 Visão
+Toda menina é uma flor — e flores precisam de cuidado para florescer com propósito.
+
+## 🎯 Propósito
+Promover autoestima, educação, espiritualidade e proteção para meninas em situação de vulnerabilidade.
+
+## 👥 Público-Alvo
+- Meninas em idade escolar
+- Famílias
+- Comunidades cristãs
+
+## 💖 Ações do Projeto
+- Oficinas de autoconhecimento com base bíblica
+- Apoio emocional e espiritual
+- Mentorias com mulheres cristãs
+- Espaço no Avanzia Smart para acompanhamento
+
+## 📖 Versículo guia
+> “Eis que farei uma coisa nova…” — Isaías 43:19
+
+## 💬 Frase inspiradora
+> Cada flor precisa de luz, cuidado e direção.# 🙏 Projeto Organizando Minha Vida com Jesus
+
+## 🌱 Visão
+Organizar o tempo para que cada momento seja vivido com fé e propósito.
+
+## 🎯 Propósito
+Ajudar famílias e indivíduos a conciliarem rotina, espiritualidade e saúde.
+
+## 👥 Público-Alvo
+- Famílias
+- Jovens e adultos
+- Comunidades cristãs
+
+## 💖 Ações do Projeto
+- Planner espiritual diário
+- Devocionais guiados
+- Oficinas de organização financeira e familiar
+- Espaço no Avanzia Smart para relatórios de paz
+
+## 📖 Versículo guia
+> “Este é o dia que o Senhor fez…” — Salmos 118:24
+
+## 💬 Frase inspiradora
+> Organizar a vida é abrir espaço para Deus agir.# ❤️ Projeto Um Novo Coração
+
+## 🌱 Visão
+Deus faz novas todas as coisas.
+
+## 🎯 Propósito
+Ajudar pessoas a encontrarem paz interior, saúde emocional e propósito em Cristo.
+
+## 👥 Público-Alvo
+- Famílias
+- Jovens em busca de direção
+- Comunidades cristãs
+
+## 💖 Ações do Projeto
+- Devocionais semanais
+- Grupos de oração
+- Palestras sobre saúde emocional
+- Espaço no Avanzia Smart para testemunhos
+
+## 📖 Versículo guia
+> “Dar-vos-ei um coração novo…” — Ezequiel 36:26
+
+## 💬 Frase inspiradora
+> Um novo coração, uma nova vida, um novo tempo.# 📖 Projeto Livro Novo Tempo
+
+## 🌱 Visão
+Eis que farei uma coisa nova.
+
+## 🎯 Propósito
+Inspirar leitores com mensagens de fé, esperança e transformação.
+
+## 👥 Público-Alvo
+- Famílias
+- Jovens e adultos
+- Comunidades cristãs
+
+## 💖 Ações do Projeto
+- Leitura guiada de trechos do livro
+- Espaço para audição e compartilhamento
+- Integração com devocionais no Avanzia Smart
+
+## 📖 Versículo guia
+> “Eis que farei uma coisa nova…” — Isaías 43:19
+
+## 💬 Frase inspiradora
+> Novo tempo, nova vida, nova esperança.# 📱 Avanzia Smart
+
+## 🌟 Visão
+Unir fé e tecnologia para organizar a vida com propósito, oferecer tempo para adorar a Deus e cuidar do que é mais precioso: **vidas**.
+
+---
+
+## 🚀 Funcionalidades Principais
+- 🎶 **Melodia Palco**: criação e inspiração musical
+- 🧭 **Planner Espiritual**: organização diária com foco em fé, família e saúde
+- 📚 **Biblioteca Autoral**: leitura e audição de conteúdos cristãos
+- 🤝 **Projetos com Propósito**: apoio direto a iniciativas sociais e espirituais
+- 🛍️ **Comércio com Propósito**: vitrine de produtos cristãos e espaço para empreendedores
+
+---
+
+## 📲 Download
+👉 Em breve disponível na **Google Play Store**  
+*(o link será adicionado aqui assim que o app for publicado)*# 📱 Avanzia Smart
+
+## 🌟 Visão
+Unir fé e tecnologia para organizar a vida com propósito, oferecer tempo para adorar a Deus e cuidar do que é mais precioso: **vidas**.
+
+---
+
+## 🚀 Funcionalidades Principais
+- 🎶 **Melodia Palco**: criação e inspiração musical
+- 🧭 **Planner Espiritual**: organização diária com foco em fé, família e saúde
+- 📚 **Biblioteca Autoral**: leitura e audição de conteúdos cristãos
+- 🤝 **Projetos com Propósito**: apoio direto a iniciativas sociais e espirituais
+- 🛍️ **Comércio com Propósito**: vitrine de produtos cristãos e espaço para empreendedores
+
+---
+
+## 📲 Download
+👉 Em breve disponível na **Google Play Store**  
+*(o link será adicionado aqui assim que o app for publicado)*
+
+---
+
+## 📚 Documentação
+- [Checklist do Projeto](docs/checklist.md)
+- [Fluxo de Navegação](docs/fluxo-navegacao.md)
+- [Organograma](docs/organograma.md)
+- [Frases-Chave](docs/frases-chave.md)
+
+## 🎶 Projetos com Propósito
+- [Menina Flor](projetos/menina-flor.md)
+- [Organizando Minha Vida com Jesus](projetos/organizando-vida.md)
+- [Um Novo Coração](projetos/novo-coracao.md)
+- [Amigos da Escola](projetos/amigos-da-escola.md)
+- [Livro Novo Tempo](projetos/livro-novo-tempo.md)
+# 📱 Avanzia Smart
+
+## 🌟 Visão
+Unir fé e tecnologia para organizar a vida com propósito, oferecer tempo para adorar a Deus e cuidar do que é mais precioso: **vidas**.
+
+---
+
+## 🚀 Funcionalidades Principais
+- 🎶 **Melodia Palco**: criação e inspiração musical
+- 🧭 **Planner Espiritual**: organização diária com foco em fé, família e saúde
+- 📚 **Biblioteca Autoral**: leitura e audição de conteúdos cristãos
+- 🤝 **Projetos com Propósito**: apoio direto a iniciativas sociais e espirituais
+- 🛍️ **Comércio com Propósito**: vitrine de produtos cristãos e espaço para empreendedores
+
+---
+
+## 📲 Download
+👉 Em breve disponível na **Google Play Store**  
+*(o link será adicionado aqui assim que o app for publicado)*
+
+---
+
+## 📚 Documentação
+- [Checklist do Projeto](docs/checklist.md)
+- [Fluxo de Navegação](docs/fluxo-navegacao.md)
+- [Organograma](docs/organograma.md)
+- [Frases-Chave](docs/frases-chave.md)
+
+## 🎶 Projetos com Propósito
+- [Menina Flor](projetos/menina-flor.md)
+- [Organizando Minha Vida com Jesus](projetos/organizando-vida.md)
+- [Um Novo Coração](projetos/novo-coracao.md)
+- [Amigos da Escola](projetos/amigos-da-escola.md)
+- [Livro Novo Tempo](projetos/livro-novo-tempo.md)
 ## ✨ Desenvolvido por
 
 Edilza & Copilot — com visão, criatividade e impacto global.
